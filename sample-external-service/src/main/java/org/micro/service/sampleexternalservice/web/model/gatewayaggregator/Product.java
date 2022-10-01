@@ -1,4 +1,4 @@
-package org.micro.service.sampleexternalservice.web.model;
+package org.micro.service.sampleexternalservice.web.model.gatewayaggregator;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -6,3 +6,6 @@ base:
     product: http://localhost:8080/product
     promotion: http://localhost:8080/promotion
     review: http://localhost:8080/reviews
+    delta: http://localhost:8080/delta
+    frontier: http://localhost:8080/frontier
+    jet-blue: http://localhost:8080/jetblue
