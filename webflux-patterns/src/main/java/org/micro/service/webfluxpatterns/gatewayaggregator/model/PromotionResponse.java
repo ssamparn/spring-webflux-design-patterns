@@ -1,4 +1,4 @@
-package org.micro.service.sampleexternalservice.web.model;
+package org.micro.service.webfluxpatterns.gatewayaggregator.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Promotion {
+public class PromotionResponse {
     private Integer productId;
     private String promotionCode;
     private String productType;

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -15,21 +16,21 @@ public class ExternalService {
 
     private Faker faker = new Faker();
 
-    public Mono<Product> createProduct(int productId) {
+    public Mono<Product> createProduct(Integer productId) {
 
         Product product = Product.builder()
                 .productId(productId)
-                .description(faker.commerce().productName())
-                .category(faker.commerce().material())
-                .price(faker.commerce().price())
+                .productDescription(faker.commerce().productName())
+                .productCategory(faker.commerce().material())
+                .productPrice(faker.number().randomDigit())
                 .build();
 
         return Mono.just(product);
     }
 
-    public Mono<Promotion> createPromotion(int promotionId) {
+    public Mono<Promotion> createPromotion(Integer productId) {
         Promotion promotion = Promotion.builder()
-                .promotionId(promotionId)
+                .productId(productId)
                 .promotionCode(faker.commerce().promotionCode())
                 .productType(faker.commerce().material())
                 .discount(faker.number().randomDigit())
@@ -39,21 +40,21 @@ public class ExternalService {
         return Mono.just(promotion);
     }
 
-    public Flux<Review> createReviews(int reviewId) {
+    public Mono<List<Review>> createReviews(Integer productId) {
         Review review1 = Review.builder()
-                .reviewId(reviewId)
+                .productId(productId)
                 .userName(faker.funnyName().name())
                 .comment(faker.letterify("Comment1"))
                 .rating(faker.number().randomDigit())
                 .build();
 
         Review review2 = Review.builder()
-                .reviewId(reviewId)
+                .productId(productId)
                 .userName(faker.funnyName().name())
                 .comment(faker.letterify("Comment2"))
                 .rating(faker.number().randomDigit())
                 .build();
 
-        return Flux.just(review1, review2);
+        return Flux.just(review1, review2).collectList();
     }
 }

@@ -1,4 +1,4 @@
-package org.micro.service.sampleexternalservice.web.model;
+package org.micro.service.webfluxpatterns.gatewayaggregator.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Product {
+public class ReviewResponse {
     private Integer productId;
-    private String productCategory;
-    private String productDescription;
-    private Integer productPrice;
+    private String userName;
+    private String comment;
+    private Integer rating;
 }
