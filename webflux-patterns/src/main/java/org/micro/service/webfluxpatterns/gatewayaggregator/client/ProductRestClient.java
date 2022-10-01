@@ -22,6 +22,7 @@ public class ProductRestClient {
                 .get()
                 .uri("/{productId}", productId)
                 .retrieve()
-                .bodyToMono(ProductResponse.class);
+                .bodyToMono(ProductResponse.class)
+                .onErrorResume(ex -> Mono.empty());
     }
 }
