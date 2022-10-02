@@ -16,7 +16,7 @@ public class GatewayAggregatorService {
 
     private Faker faker = new Faker();
 
-    public Mono<Product> createProduct(Integer productId) {
+    public Mono<Product> createProductForGatewayAggregator(Integer productId) {
 
         Product product = Product.builder()
                 .productId(productId)

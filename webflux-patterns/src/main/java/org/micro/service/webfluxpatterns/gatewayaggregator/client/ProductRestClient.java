@@ -11,7 +11,7 @@ public class ProductRestClient {
 
     private final WebClient webClient;
 
-    public ProductRestClient(@Value("${base.url.product}") String baseUrl) {
+    public ProductRestClient(@Value("${base.url.ga-product}") String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();
