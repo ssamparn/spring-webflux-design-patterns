@@ -10,11 +10,11 @@ import java.util.Collections;
 import java.util.List;
 
 @Component
-public class ReviewRestClient {
+public class GaReviewRestClient {
 
     private final WebClient webClient;
 
-    public ReviewRestClient(@Value("${base.url.review}") String baseUrl) {
+    public GaReviewRestClient(@Value("${base.url.review}") String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();

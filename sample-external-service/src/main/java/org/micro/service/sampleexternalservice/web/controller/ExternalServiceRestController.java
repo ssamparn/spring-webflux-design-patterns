@@ -1,4 +1,4 @@
-package org.micro.service.sampleexternalservice.web.api;
+package org.micro.service.sampleexternalservice.web.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.micro.service.sampleexternalservice.service.GatewayAggregatorService;

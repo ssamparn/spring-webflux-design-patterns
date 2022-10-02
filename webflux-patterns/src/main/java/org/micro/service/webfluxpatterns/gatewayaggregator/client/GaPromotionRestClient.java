@@ -9,11 +9,11 @@ import reactor.core.publisher.Mono;
 import java.time.LocalDate;
 
 @Component
-public class PromotionRestClient {
+public class GaPromotionRestClient {
 
     private final WebClient webClient;
 
-    public PromotionRestClient(@Value("${base.url.promotion}") String baseUrl) {
+    public GaPromotionRestClient(@Value("${base.url.promotion}") String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();

@@ -1,9 +1,9 @@
 package org.micro.service.webfluxpatterns.gatewayaggregator.service;
 
 import lombok.RequiredArgsConstructor;
-import org.micro.service.webfluxpatterns.gatewayaggregator.client.ProductRestClient;
-import org.micro.service.webfluxpatterns.gatewayaggregator.client.PromotionRestClient;
-import org.micro.service.webfluxpatterns.gatewayaggregator.client.ReviewRestClient;
+import org.micro.service.webfluxpatterns.gatewayaggregator.client.GaProductRestClient;
+import org.micro.service.webfluxpatterns.gatewayaggregator.client.GaPromotionRestClient;
+import org.micro.service.webfluxpatterns.gatewayaggregator.client.GaReviewRestClient;
 import org.micro.service.webfluxpatterns.gatewayaggregator.model.Price;
 import org.micro.service.webfluxpatterns.gatewayaggregator.model.ProductAggregate;
 import org.micro.service.webfluxpatterns.gatewayaggregator.model.ProductResponse;
@@ -18,15 +18,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductAggregatorService {
 
-    private final ProductRestClient productRestClient;
-    private final PromotionRestClient promotionRestClient;
-    private final ReviewRestClient reviewRestClient;
+    private final GaProductRestClient gaProductRestClient;
+    private final GaPromotionRestClient gaPromotionRestClient;
+    private final GaReviewRestClient gaReviewRestClient;
 
     public Mono<ProductAggregate> aggregateProduct(Integer productId) {
 
-        Mono<ProductResponse> productResponseMono = this.productRestClient.getProduct(productId);
-        Mono<PromotionResponse> promotionResponseMono = this.promotionRestClient.getPromotion(productId);
-        Mono<List<ReviewResponse>> reviewsResponseMono = this.reviewRestClient.getReviews(productId);
+        Mono<ProductResponse> productResponseMono = this.gaProductRestClient.getProduct(productId);
+        Mono<PromotionResponse> promotionResponseMono = this.gaPromotionRestClient.getPromotion(productId);
+        Mono<List<ReviewResponse>> reviewsResponseMono = this.gaReviewRestClient.getReviews(productId);
 
         return Mono.zip(
                 productResponseMono,

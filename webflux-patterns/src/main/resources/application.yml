@@ -10,4 +10,7 @@ base:
     frontier: http://localhost:8080/scattergather/frontier
     jet-blue: http://localhost:8080/scattergather/jetblue
     so-product: http://localhost:8080/serviceorchestrator/product
+    so-user: http://localhost:8080/serviceorchestrator/user
+    so-inventory: http://localhost:8080/serviceorchestrator/inventory
+    so-shipping: http://localhost:8080/serviceorchestrator/shipping
 

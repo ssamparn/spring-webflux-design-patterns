@@ -1,17 +1,17 @@
-package org.micro.service.webfluxpatterns.gatewayaggregator.client;
+package org.micro.service.webfluxpatterns.serviceaggregator.client;
 
-import org.micro.service.webfluxpatterns.gatewayaggregator.model.ProductResponse;
+import org.micro.service.webfluxpatterns.serviceaggregator.model.response.ProductResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Component
-public class ProductRestClient {
+public class SoProductRestClient {
 
     private final WebClient webClient;
 
-    public ProductRestClient(@Value("${base.url.ga-product}") String baseUrl) {
+    public SoProductRestClient(@Value("${base.url.so-product}") String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();
@@ -25,4 +25,5 @@ public class ProductRestClient {
                 .bodyToMono(ProductResponse.class)
                 .onErrorResume(ex -> Mono.empty());
     }
+
 }
