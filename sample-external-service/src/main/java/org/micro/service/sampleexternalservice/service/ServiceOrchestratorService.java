@@ -18,13 +18,17 @@ public class ServiceOrchestratorService {
 
     private Faker faker = new Faker();
 
+    private String userName = faker.name().fullName();
+    private Integer balance = faker.number().numberBetween(100, 200);
+    private Integer inventoryItems = faker.number().numberBetween(500, 1000);
+
     public Mono<Product> createProductForServiceOrchestrator(Integer productId) {
 
         Product product = Product.builder()
                 .productId(productId)
                 .productDescription(faker.commerce().productName())
                 .productCategory(faker.commerce().material())
-                .productPrice(faker.number().randomDigit())
+                .productPrice(faker.number().numberBetween(10, 100))
                 .build();
 
         return Mono.just(product);
@@ -34,8 +38,8 @@ public class ServiceOrchestratorService {
 
         User user = User.builder()
                 .userId(userId)
-                .userName(faker.name().firstName())
-                .balance(faker.number().numberBetween(100, 200))
+                .userName(userName)
+                .balance(balance)
                 .address(User.Address.create(
                         faker.address().streetAddress(),
                         faker.address().cityName(),
@@ -48,11 +52,12 @@ public class ServiceOrchestratorService {
     }
 
     public Mono<Deduct> deduct(DeductAmountRequest deductAmountRequest) {
+        balance = balance - deductAmountRequest.getAmount();
 
         Deduct deduct = Deduct.builder()
                 .userId(deductAmountRequest.getUserId())
-                .userName(faker.name().firstName())
-                .balance(faker.number().numberBetween(100, 200))
+                .userName(userName)
+                .balance(balance)
                 .status("SUCCESS")
                 .build();
 
@@ -60,28 +65,29 @@ public class ServiceOrchestratorService {
     }
 
     public Mono<Refund> refund(RefundAmountRequest refundAmountRequest) {
+        balance = balance + refundAmountRequest.getAmount();
 
         Refund refund = Refund.builder()
                 .userId(refundAmountRequest.getUserId())
-                .userName(faker.name().firstName())
-                .balance(faker.number().numberBetween(100, 200))
+                .userName(userName)
+                .balance(balance)
                 .status("SUCCESS")
                 .build();
 
         return Mono.just(refund);
     }
 
-
     public Integer countInventoryItems(int productId) {
-        return 10;
+        return inventoryItems;
     }
 
-
     public Mono<DeductInventory> createDeductedInventory(DeductInventoryRequest deductInventoryRequest) {
+        inventoryItems = inventoryItems - deductInventoryRequest.getQuantity();
+
         DeductInventory deductInventory = DeductInventory.builder()
                 .productId(deductInventoryRequest.getProductId())
                 .quantity(deductInventoryRequest.getQuantity())
-                .remainingQuantity(deductInventoryRequest.getQuantity())
+                .remainingQuantity(inventoryItems)
                 .status("SUCCESS")
                 .build();
 
@@ -89,10 +95,12 @@ public class ServiceOrchestratorService {
     }
 
     public Mono<RestoreInventory> createRestoredInventory(RestoreInventoryRequest restoreInventoryRequest) {
+        inventoryItems = inventoryItems + restoreInventoryRequest.getQuantity();
+
         RestoreInventory restoreInventory = RestoreInventory.builder()
                 .productId(restoreInventoryRequest.getProductId())
                 .quantity(restoreInventoryRequest.getQuantity())
-                .remainingQuantity(restoreInventoryRequest.getQuantity())
+                .remainingQuantity(inventoryItems)
                 .status("SUCCESS")
                 .build();
 

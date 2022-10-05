@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RefundAmountRequest {
-    private Integer amount;
-    private String orderId;
     private Integer userId;
+    private String orderId;
+    private Integer amount;
 }
