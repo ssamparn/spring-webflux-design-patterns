@@ -1,22 +1,20 @@
 package org.micro.service.webfluxpatterns.serviceaggregator.client;
 
 import org.micro.service.webfluxpatterns.serviceaggregator.model.request.InventoryRequest;
-import org.micro.service.webfluxpatterns.serviceaggregator.model.request.PaymentRequest;
 import org.micro.service.webfluxpatterns.serviceaggregator.model.response.InventoryResponse;
-import org.micro.service.webfluxpatterns.serviceaggregator.model.response.PaymentResponse;
 import org.micro.service.webfluxpatterns.serviceaggregator.model.response.Status;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-public class SoInventoryClient {
+public class SoInventoryRestClient {
 
     private static final String DEDUCT = "deduct";
     private static final String RESTORE = "restore";
 
     private final WebClient webClient;
 
-    public SoInventoryClient(@Value("${base.url.so-inventory}") String baseUrl) {
+    public SoInventoryRestClient(@Value("${base.url.so-inventory}") String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();

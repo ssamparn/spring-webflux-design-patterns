@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-public class SoShippingClient {
+public class SoShippingRestClient {
 
     private static final String SCHEDULE = "schedule";
     private static final String CANCEL = "cancel";
 
     private final WebClient webClient;
 
-    public SoShippingClient(@Value("${base.url.so-shipping}") String baseUrl) {
+    public SoShippingRestClient(@Value("${base.url.so-shipping}") String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();
