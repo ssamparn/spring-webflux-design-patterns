@@ -4,9 +4,11 @@ import org.micro.service.webfluxpatterns.serviceaggregator.model.request.Shippin
 import org.micro.service.webfluxpatterns.serviceaggregator.model.response.ShippingResponse;
 import org.micro.service.webfluxpatterns.serviceaggregator.model.response.Status;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+@Component
 public class SoShippingRestClient {
 
     private static final String SCHEDULE = "schedule";
