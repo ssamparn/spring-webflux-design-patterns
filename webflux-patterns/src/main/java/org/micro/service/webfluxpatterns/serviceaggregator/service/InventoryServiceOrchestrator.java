@@ -1,6 +1,6 @@
 package org.micro.service.webfluxpatterns.serviceaggregator.service;
 
-import org.micro.service.webfluxpatterns.serviceaggregator.client.SoShippingRestClient;
+import org.micro.service.webfluxpatterns.serviceaggregator.client.SoInventoryRestClient;
 import org.micro.service.webfluxpatterns.serviceaggregator.model.OrchestrationRequestContext;
 import org.micro.service.webfluxpatterns.serviceaggregator.model.response.Status;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +11,15 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 @Service
-public class ShippingOrchestrator implements ServiceOrchestrator {
+public class InventoryServiceOrchestrator implements ServiceOrchestrator {
 
     @Autowired
-    private SoShippingRestClient shippingRestClient;
+    private SoInventoryRestClient inventoryRestClient;
 
     @Override
     public Mono<OrchestrationRequestContext> create(OrchestrationRequestContext ctx) {
-        return this.shippingRestClient.scheduleShipping(ctx.getShippingRequest())
-                .doOnNext(ctx::setShippingResponse)
+        return this.inventoryRestClient.deductInventory(ctx.getInventoryRequest())
+                .doOnNext(ctx::setInventoryResponse)
                 .thenReturn(ctx);
     }
 
@@ -32,8 +32,8 @@ public class ShippingOrchestrator implements ServiceOrchestrator {
     public Consumer<OrchestrationRequestContext> cancel() {
         return ctx -> Mono.just(ctx)
                 .filter(isSuccess())
-                .map(OrchestrationRequestContext::getShippingRequest)
-                .flatMap(this.shippingRestClient::cancelShipping)
+                .map(OrchestrationRequestContext::getInventoryRequest)
+                .flatMap(this.inventoryRestClient::restoreInventory)
                 .subscribe();
     }
 }

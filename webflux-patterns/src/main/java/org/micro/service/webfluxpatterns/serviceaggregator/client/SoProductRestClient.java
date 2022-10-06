@@ -1,6 +1,6 @@
 package org.micro.service.webfluxpatterns.serviceaggregator.client;
 
-import org.micro.service.webfluxpatterns.serviceaggregator.model.response.ProductResponse;
+import org.micro.service.webfluxpatterns.serviceaggregator.model.response.SoProductResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -17,12 +17,12 @@ public class SoProductRestClient {
                 .build();
     }
 
-    public Mono<ProductResponse> getProduct(Integer productId) {
+    public Mono<SoProductResponse> getProduct(Integer productId) {
         return this.webClient
                 .get()
                 .uri("/{productId}", productId)
                 .retrieve()
-                .bodyToMono(ProductResponse.class)
+                .bodyToMono(SoProductResponse.class)
                 .onErrorResume(ex -> Mono.empty());
     }
 
