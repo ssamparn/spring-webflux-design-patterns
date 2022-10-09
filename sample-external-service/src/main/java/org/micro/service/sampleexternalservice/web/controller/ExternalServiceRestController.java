@@ -11,8 +11,14 @@ import org.micro.service.sampleexternalservice.web.model.scattergather.Delta;
 import org.micro.service.sampleexternalservice.web.model.scattergather.Frontier;
 import org.micro.service.sampleexternalservice.web.model.scattergather.JetBlue;
 import org.micro.service.sampleexternalservice.web.model.scattergather.request.FrontierRequest;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.*;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.request.*;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.Deduct;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.DeductInventory;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.Refund;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.RestoreInventory;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.ScheduleShipping;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.SoProduct;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.User;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -66,47 +72,47 @@ public class ExternalServiceRestController {
         return scatterGatherService.streamJetBlueAirlineFlights(source, destination);
     }
 
-    @GetMapping("/serviceorchestrator/product/{productId}")
+    @GetMapping("/serviceorchestrator-parallel/product/{productId}")
     public Mono<SoProduct> getProductWithServiceOrchestrator(@PathVariable(name = "productId") int productId) {
         return serviceOrchestratorService.createProductForServiceOrchestrator(productId);
     }
 
-    @GetMapping("/serviceorchestrator/user/{userId}")
+    @GetMapping("/serviceorchestrator-parallel/user/{userId}")
     public Mono<User> getUser(@PathVariable(name = "userId") int userId) {
         return serviceOrchestratorService.createUser(userId);
     }
 
-    @PostMapping("/serviceorchestrator/user/deduct")
+    @PostMapping("/serviceorchestrator-parallel/user/deduct")
     public Mono<Deduct> deductAmount(@RequestBody DeductAmountRequest deductAmountRequest) {
         return serviceOrchestratorService.deduct(deductAmountRequest);
     }
 
-    @PostMapping("/serviceorchestrator/user/refund")
+    @PostMapping("/serviceorchestrator-parallel/user/refund")
     public Mono<Refund> refundAmount(@RequestBody RefundAmountRequest refundAmountRequest) {
         return serviceOrchestratorService.refund(refundAmountRequest);
     }
 
-    @GetMapping("/serviceorchestrator/inventory/{productId}")
+    @GetMapping("/serviceorchestrator-parallel/inventory/{productId}")
     public Integer getInventory(@PathVariable(name = "productId") int productId) {
         return serviceOrchestratorService.countInventoryItems(productId);
     }
 
-    @PostMapping("/serviceorchestrator/inventory/deduct")
+    @PostMapping("/serviceorchestrator-parallel/inventory/deduct")
     public Mono<DeductInventory> deductInventory(@RequestBody DeductInventoryRequest deductInventoryRequest) {
         return serviceOrchestratorService.createDeductedInventory(deductInventoryRequest);
     }
 
-    @PostMapping("/serviceorchestrator/inventory/restore")
+    @PostMapping("/serviceorchestrator-parallel/inventory/restore")
     public Mono<RestoreInventory> restoreInventory(@RequestBody RestoreInventoryRequest restoreInventoryRequest) {
         return serviceOrchestratorService.createRestoredInventory(restoreInventoryRequest);
     }
 
-    @PostMapping("/serviceorchestrator/shipping/schedule")
+    @PostMapping("/serviceorchestrator-parallel/shipping/schedule")
     public Mono<ScheduleShipping> scheduleShipping(@RequestBody ScheduleShippingRequest scheduleShippingRequest) {
         return serviceOrchestratorService.createScheduleShipping(scheduleShippingRequest);
     }
 
-    @PostMapping("/serviceorchestrator/shipping/cancel")
+    @PostMapping("/serviceorchestrator-parallel/shipping/cancel")
     public Mono<ResponseEntity> cancelShipping(@RequestBody CancelShippingRequest cancelShippingRequest) {
         return Mono.just(new ResponseEntity<>(HttpStatus.OK));
     }

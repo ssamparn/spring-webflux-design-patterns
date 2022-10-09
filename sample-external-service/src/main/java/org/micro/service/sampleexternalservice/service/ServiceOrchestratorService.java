@@ -1,12 +1,18 @@
 package org.micro.service.sampleexternalservice.service;
 
 import com.github.javafaker.Faker;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.*;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.request.ScheduleShippingRequest;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.request.DeductAmountRequest;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.request.DeductInventoryRequest;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.request.RefundAmountRequest;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.request.RestoreInventoryRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.Deduct;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.DeductInventory;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.Refund;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.RestoreInventory;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.ScheduleShipping;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.SoProduct;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.User;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.ScheduleShippingRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.DeductAmountRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.DeductInventoryRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.RefundAmountRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.RestoreInventoryRequest;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 

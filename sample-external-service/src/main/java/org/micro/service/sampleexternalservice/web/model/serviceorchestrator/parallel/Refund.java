@@ -1,4 +1,4 @@
-package org.micro.service.sampleexternalservice.web.model.serviceorchestrator;
+package org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
