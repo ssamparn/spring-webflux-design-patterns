@@ -9,14 +9,14 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Component
-public class SoShippingRestClient {
+public class SopShippingRestClient {
 
     private static final String SCHEDULE = "schedule";
     private static final String CANCEL = "cancel";
 
     private final WebClient webClient;
 
-    public SoShippingRestClient(@Value("${base.url.sop-shipping}") String baseUrl) {
+    public SopShippingRestClient(@Value("${base.url.sop-shipping}") String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();

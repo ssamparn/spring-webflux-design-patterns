@@ -9,14 +9,14 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Component
-public class SoUserRestClient {
+public class SopUserRestClient {
 
     private static final String DEDUCT = "deduct";
     private static final String REFUND = "refund";
 
     private final WebClient webClient;
 
-    public SoUserRestClient(@Value("${base.url.sop-user}") String baseUrl) {
+    public SopUserRestClient(@Value("${base.url.sop-user}") String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();

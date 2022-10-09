@@ -1,6 +1,6 @@
 package org.micro.service.webfluxpatterns.serviceorchestrator.parallel.service;
 
-import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.client.SoInventoryRestClient;
+import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.client.SopInventoryRestClient;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.OrchestrationRequestContext;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.response.Status;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.function.Predicate;
 public class InventoryServiceOrchestrator implements ServiceOrchestrator {
 
     @Autowired
-    private SoInventoryRestClient inventoryRestClient;
+    private SopInventoryRestClient inventoryRestClient;
 
     @Override
     public Mono<OrchestrationRequestContext> create(OrchestrationRequestContext ctx) {

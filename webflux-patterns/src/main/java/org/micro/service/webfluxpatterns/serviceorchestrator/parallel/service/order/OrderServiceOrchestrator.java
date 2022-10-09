@@ -1,6 +1,6 @@
 package org.micro.service.webfluxpatterns.serviceorchestrator.parallel.service.order;
 
-import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.client.SoProductRestClient;
+import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.client.SopProductRestClient;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.OrchestrationRequestContext;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.request.OrderRequest;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.response.OrderResponse;
@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
 public class OrderServiceOrchestrator {
 
     @Autowired
-    private SoProductRestClient productRestClient;
+    private SopProductRestClient productRestClient;
 
     @Autowired
     private OrderFulfillmentService orderFulfillmentService;
