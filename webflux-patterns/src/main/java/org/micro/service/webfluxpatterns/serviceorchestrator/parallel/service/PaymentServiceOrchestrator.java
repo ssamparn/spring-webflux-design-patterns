@@ -1,6 +1,6 @@
 package org.micro.service.webfluxpatterns.serviceorchestrator.parallel.service;
 
-import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.client.SopUserRestClient;
+import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.client.PosUserRestClient;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.OrchestrationRequestContext;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.response.Status;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.function.Predicate;
 public class PaymentServiceOrchestrator implements ServiceOrchestrator {
 
     @Autowired
-    private SopUserRestClient userRestClient;
+    private PosUserRestClient userRestClient;
 
     @Override
     public Mono<OrchestrationRequestContext> create(OrchestrationRequestContext ctx) {

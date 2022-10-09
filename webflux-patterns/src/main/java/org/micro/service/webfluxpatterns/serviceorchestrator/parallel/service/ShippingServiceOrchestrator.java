@@ -1,6 +1,6 @@
 package org.micro.service.webfluxpatterns.serviceorchestrator.parallel.service;
 
-import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.client.SopShippingRestClient;
+import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.client.PosShippingRestClient;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.OrchestrationRequestContext;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.response.Status;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.function.Predicate;
 public class ShippingServiceOrchestrator implements ServiceOrchestrator {
 
     @Autowired
-    private SopShippingRestClient shippingRestClient;
+    private PosShippingRestClient shippingRestClient;
 
     @Override
     public Mono<OrchestrationRequestContext> create(OrchestrationRequestContext ctx) {

@@ -7,11 +7,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Component
-public class SopProductRestClient {
+public class PosProductRestClient {
 
     private final WebClient webClient;
 
-    public SopProductRestClient(@Value("${base.url.sop-product}") String baseUrl) {
+    public PosProductRestClient(@Value("${base.url.sop-product}") String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();

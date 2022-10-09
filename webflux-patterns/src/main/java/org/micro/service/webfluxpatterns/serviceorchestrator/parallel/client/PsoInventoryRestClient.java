@@ -9,14 +9,14 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Component
-public class SopInventoryRestClient {
+public class PsoInventoryRestClient {
 
     private static final String DEDUCT = "deduct";
     private static final String RESTORE = "restore";
 
     private final WebClient webClient;
 
-    public SopInventoryRestClient(@Value("${base.url.sop-inventory}") String baseUrl) {
+    public PsoInventoryRestClient(@Value("${base.url.sop-inventory}") String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();
