@@ -12,11 +12,15 @@
 
 ![img_2.png](img_2.png)
 
-### Service Orchestrator Pattern
+### Service Orchestrator Pattern - Parallel
 
 ![img_3.png](img_3.png)
 
-#### Service Layer Implementation
+#### Service Layer Implementation - Parallel
 
 ![img_4.png](img_4.png)
+
+### Service Orchestrator Pattern - Sequential
+
+![img_5.png](img_5.png)
 
