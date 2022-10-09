@@ -1,18 +1,20 @@
-package org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel;
+package org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PsoScheduleShipping {
-    private String orderId;
+public class SsoScheduleShipping {
+    private UUID shippingId;
     private Integer quantity;
     private String status;
     private String expectedDelivery;
-    private PsoUser.Address address;
+    private SsoUser.Address address;
 }

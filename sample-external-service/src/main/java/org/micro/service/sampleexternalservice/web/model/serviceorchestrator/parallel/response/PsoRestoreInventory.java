@@ -1,4 +1,4 @@
-package org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel;
+package org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PsoDeductInventory {
+public class PsoRestoreInventory {
     private Integer productId;
     private Integer quantity;
     private Integer remainingQuantity;

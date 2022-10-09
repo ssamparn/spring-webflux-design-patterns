@@ -1,4 +1,4 @@
-package org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential;
+package org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

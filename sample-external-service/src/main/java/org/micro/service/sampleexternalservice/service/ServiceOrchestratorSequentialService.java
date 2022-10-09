@@ -2,13 +2,13 @@ package org.micro.service.sampleexternalservice.service;
 
 import com.github.javafaker.Faker;
 
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoDeductPayment;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoDeductInventory;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoProduct;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoRefundPayment;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoRestoreInventory;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoScheduleShipping;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoUser;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.response.SsoDeductPayment;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.response.SsoDeductInventory;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.response.SsoProduct;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.response.SsoRefundPayment;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.response.SsoRestoreInventory;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.response.SsoScheduleShipping;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.response.SsoUser;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.request.SsoDeductInventoryRequest;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.request.SsoDeductPaymentRequest;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.request.SsoRefundPaymentRequest;

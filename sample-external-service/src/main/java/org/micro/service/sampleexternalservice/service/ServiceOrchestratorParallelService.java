@@ -1,13 +1,13 @@
 package org.micro.service.sampleexternalservice.service;
 
 import com.github.javafaker.Faker;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoDeductPayment;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoDeductInventory;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoProduct;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoRefundPayment;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoRestoreInventory;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoScheduleShipping;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoUser;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.response.PsoDeductPayment;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.response.PsoDeductInventory;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.response.PsoProduct;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.response.PsoRefundPayment;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.response.PsoRestoreInventory;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.response.PsoScheduleShipping;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.response.PsoUser;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoDeductInventoryRequest;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoDeductPaymentRequest;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoRefundPaymentRequest;
