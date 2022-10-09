@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PsoDeductAmountRequest {
+public class PsoRefundPaymentRequest {
     private Integer userId;
     private String orderId;
     private Integer amount;

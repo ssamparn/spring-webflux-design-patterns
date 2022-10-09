@@ -83,13 +83,13 @@ public class ExternalServiceRestController {
     }
 
     @PostMapping("/serviceorchestrator-parallel/user/deduct")
-    public Mono<PsoDeduct> deductAmount(@RequestBody PsoDeductAmountRequest psoDeductAmountRequest) {
-        return serviceOrchestratorService.deduct(psoDeductAmountRequest);
+    public Mono<PsoDeduct> deductAmount(@RequestBody PsoDeductPaymentRequest psoDeductPaymentRequest) {
+        return serviceOrchestratorService.deduct(psoDeductPaymentRequest);
     }
 
     @PostMapping("/serviceorchestrator-parallel/user/refund")
-    public Mono<PsoRefund> refundAmount(@RequestBody PsoRefundAmountRequest psoRefundAmountRequest) {
-        return serviceOrchestratorService.refund(psoRefundAmountRequest);
+    public Mono<PsoRefund> refundAmount(@RequestBody PsoRefundPaymentRequest psoRefundPaymentRequest) {
+        return serviceOrchestratorService.refund(psoRefundPaymentRequest);
     }
 
     @GetMapping("/serviceorchestrator-parallel/inventory/{productId}")

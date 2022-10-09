@@ -9,9 +9,9 @@ import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.par
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoProduct;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoUser;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoScheduleShippingRequest;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoDeductAmountRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoDeductPaymentRequest;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoDeductInventoryRequest;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoRefundAmountRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoRefundPaymentRequest;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoRestoreInventoryRequest;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -56,11 +56,11 @@ public class ServiceOrchestratorService {
         return Mono.just(psoUser);
     }
 
-    public Mono<PsoDeduct> deduct(PsoDeductAmountRequest psoDeductAmountRequest) {
-        balance = balance - psoDeductAmountRequest.getAmount();
+    public Mono<PsoDeduct> deduct(PsoDeductPaymentRequest psoDeductPaymentRequest) {
+        balance = balance - psoDeductPaymentRequest.getAmount();
 
         PsoDeduct psoDeduct = PsoDeduct.builder()
-                .userId(psoDeductAmountRequest.getUserId())
+                .userId(psoDeductPaymentRequest.getUserId())
                 .userName(userName)
                 .balance(balance)
                 .status("SUCCESS")
@@ -69,11 +69,11 @@ public class ServiceOrchestratorService {
         return Mono.just(psoDeduct);
     }
 
-    public Mono<PsoRefund> refund(PsoRefundAmountRequest psoRefundAmountRequest) {
-        balance = balance + psoRefundAmountRequest.getAmount();
+    public Mono<PsoRefund> refund(PsoRefundPaymentRequest psoRefundPaymentRequest) {
+        balance = balance + psoRefundPaymentRequest.getAmount();
 
         PsoRefund psoRefund = PsoRefund.builder()
-                .userId(psoRefundAmountRequest.getUserId())
+                .userId(psoRefundPaymentRequest.getUserId())
                 .userName(userName)
                 .balance(balance)
                 .status("SUCCESS")
