@@ -16,7 +16,7 @@ public class OrderFulfillmentService {
     @Autowired
     private List<ServiceOrchestrator> serviceOrchestrators;
 
-    public Mono<OrchestrationRequestContext> placeOrder(OrchestrationRequestContext ctx) {
+    public Mono<OrchestrationRequestContext> fulfillOrder(OrchestrationRequestContext ctx) {
         List<Mono<OrchestrationRequestContext>> publisherList = serviceOrchestrators.stream()
                 .map(orchestrator -> orchestrator.create(ctx))
                 .collect(Collectors.toList());

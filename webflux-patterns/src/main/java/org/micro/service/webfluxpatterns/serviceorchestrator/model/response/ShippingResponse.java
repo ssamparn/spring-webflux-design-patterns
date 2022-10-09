@@ -13,7 +13,7 @@ public class ShippingResponse {
     private UUID orderId;
     private Integer quantity;
     private Status status;
-    private String expectedDeliveryDate;
+    private String expectedDelivery;
     private Address address;
 
 }

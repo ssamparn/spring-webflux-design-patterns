@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(staticName = "create")
 public class PaymentResponse {
     private Integer userId;
-    private String name;
+    private String userName;
     private Integer balance;
     private Status status;
 }

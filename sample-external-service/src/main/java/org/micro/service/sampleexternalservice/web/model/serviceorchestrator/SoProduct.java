@@ -1,13 +1,15 @@
-package org.micro.service.webfluxpatterns.serviceorchestrator.model.response;
+package org.micro.service.sampleexternalservice.web.model.serviceorchestrator;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor(staticName = "create")
-public class SoProductResponse {
+@AllArgsConstructor
+@Builder
+public class SoProduct {
     private Integer productId;
     private String productCategory;
     private String productDescription;

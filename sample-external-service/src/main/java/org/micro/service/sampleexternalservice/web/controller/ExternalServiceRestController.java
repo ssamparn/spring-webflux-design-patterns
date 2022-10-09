@@ -67,7 +67,7 @@ public class ExternalServiceRestController {
     }
 
     @GetMapping("/serviceorchestrator/product/{productId}")
-    public Mono<Product> getProductWithServiceOrchestrator(@PathVariable(name = "productId") int productId) {
+    public Mono<SoProduct> getProductWithServiceOrchestrator(@PathVariable(name = "productId") int productId) {
         return serviceOrchestratorService.createProductForServiceOrchestrator(productId);
     }
 

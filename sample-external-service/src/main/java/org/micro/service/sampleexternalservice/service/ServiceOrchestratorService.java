@@ -1,7 +1,6 @@
 package org.micro.service.sampleexternalservice.service;
 
 import com.github.javafaker.Faker;
-import org.micro.service.sampleexternalservice.web.model.gatewayaggregator.Product;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.*;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.request.ScheduleShippingRequest;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.request.DeductAmountRequest;
@@ -22,9 +21,9 @@ public class ServiceOrchestratorService {
     private Integer balance = faker.number().numberBetween(100, 200);
     private Integer inventoryItems = faker.number().numberBetween(500, 1000);
 
-    public Mono<Product> createProductForServiceOrchestrator(Integer productId) {
+    public Mono<SoProduct> createProductForServiceOrchestrator(Integer productId) {
 
-        Product product = Product.builder()
+        SoProduct product = SoProduct.builder()
                 .productId(productId)
                 .productDescription(faker.commerce().productName())
                 .productCategory(faker.commerce().material())

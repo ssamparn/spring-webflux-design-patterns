@@ -6,6 +6,7 @@ import org.micro.service.webfluxpatterns.serviceorchestrator.model.request.Order
 import org.micro.service.webfluxpatterns.serviceorchestrator.model.response.OrderResponse;
 import org.micro.service.webfluxpatterns.serviceorchestrator.model.response.SoProductResponse;
 import org.micro.service.webfluxpatterns.serviceorchestrator.model.response.Status;
+import org.micro.service.webfluxpatterns.serviceorchestrator.util.DebugUtil;
 import org.micro.service.webfluxpatterns.serviceorchestrator.util.OrchestrationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,19 +29,20 @@ public class OrderServiceOrchestrator {
                 .map(OrchestrationRequestContext::new)
                 .flatMap(this::getProduct)
                 .doOnNext(OrchestrationUtil::buildRequestContext)
-                .flatMap(orderFulfillmentService::placeOrder)
-                .doOnNext(this::processCancelledOrder)
+                .flatMap(orderFulfillmentService::fulfillOrder)
+                .doOnNext(this::processCancelledOrderIfAny)
+                .doOnNext(DebugUtil::print)
                 .map(this::toOrderResponse);
     }
 
     private Mono<OrchestrationRequestContext> getProduct(OrchestrationRequestContext ctx) {
         return this.productRestClient.getProduct(ctx.getOrderRequest().getProductId())
-                .map(SoProductResponse::getPrice)
+                .map(SoProductResponse::getProductPrice)
                 .doOnNext(ctx::setProductPrice)
                 .thenReturn(ctx);
     }
 
-    private void processCancelledOrder(OrchestrationRequestContext ctx) {
+    private void processCancelledOrderIfAny(OrchestrationRequestContext ctx) {
         if (Status.FAILED == ctx.getStatus()) {
             this.orderCancellationService.cancelOrder(ctx);
         }
@@ -49,7 +51,7 @@ public class OrderServiceOrchestrator {
     private OrderResponse toOrderResponse(OrchestrationRequestContext ctx) {
         boolean isSuccess = Status.SUCCESS == ctx.getStatus();
         var address = isSuccess ? ctx.getShippingResponse().getAddress() : null;
-        var expectedDeliveryDate = isSuccess ? ctx.getShippingResponse().getExpectedDeliveryDate() : null;
+        var expectedDeliveryDate = isSuccess ? ctx.getShippingResponse().getExpectedDelivery() : null;
 
         return OrderResponse.create(
                 ctx.getOrderRequest().getUserId(),

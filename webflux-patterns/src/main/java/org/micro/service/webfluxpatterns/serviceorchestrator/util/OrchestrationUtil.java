@@ -15,7 +15,7 @@ public class OrchestrationUtil {
 
     private static void buildPaymentRequest(OrchestrationRequestContext ctx) {
         PaymentRequest paymentRequest = PaymentRequest.create(
-                ctx.getPaymentRequest().getUserId(),
+                ctx.getOrderRequest().getUserId(),
                 ctx.getProductPrice() * ctx.getOrderRequest().getQuantity(),
                 ctx.getOrderId()
         );
