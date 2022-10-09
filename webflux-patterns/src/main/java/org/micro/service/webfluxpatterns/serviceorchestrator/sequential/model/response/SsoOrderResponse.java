@@ -13,7 +13,7 @@ public class SsoOrderResponse {
     private Integer userId;
     private Integer productId;
     private UUID orderId;
-    private SsoStatus ssoStatus;
-    private SsoAddress ssoAddress;
+    private SsoStatus status;
+    private SsoAddress address;
     private String expectedDeliveryDate;
 }

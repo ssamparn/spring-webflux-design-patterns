@@ -3,7 +3,8 @@ package org.micro.service.sampleexternalservice.web.controller;
 import lombok.RequiredArgsConstructor;
 import org.micro.service.sampleexternalservice.service.GatewayAggregatorService;
 import org.micro.service.sampleexternalservice.service.ScatterGatherService;
-import org.micro.service.sampleexternalservice.service.ServiceOrchestratorService;
+import org.micro.service.sampleexternalservice.service.ServiceOrchestratorParallelService;
+import org.micro.service.sampleexternalservice.service.ServiceOrchestratorSequentialService;
 import org.micro.service.sampleexternalservice.web.model.gatewayaggregator.Product;
 import org.micro.service.sampleexternalservice.web.model.gatewayaggregator.Promotion;
 import org.micro.service.sampleexternalservice.web.model.gatewayaggregator.Review;
@@ -19,6 +20,18 @@ import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.par
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoProduct;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoUser;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.*;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoDeduct;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoDeductInventory;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoProduct;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoRefund;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoRestoreInventory;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoScheduleShipping;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoUser;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.request.SsoDeductInventoryRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.request.SsoDeductPaymentRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.request.SsoRefundPaymentRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.request.SsoRestoreInventoryRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.request.SsoScheduleShippingRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +51,10 @@ public class ExternalServiceRestController {
 
     private final GatewayAggregatorService gatewayAggregatorService;
     private final ScatterGatherService scatterGatherService;
-    private final ServiceOrchestratorService serviceOrchestratorService;
+    private final ServiceOrchestratorParallelService serviceOrchestratorParallelService;
+    private final ServiceOrchestratorSequentialService serviceOrchestratorSequentialService;
+
+    // Gateway Aggregator
 
     @GetMapping("/gatewayaggregator/product/{productId}")
     public Mono<Product> getProductWithGatewayAggregator(@PathVariable(name = "productId") int productId) {
@@ -54,6 +70,8 @@ public class ExternalServiceRestController {
     public Mono<List<Review>> getAllReviews(@PathVariable(name = "reviewId") int reviewId) {
         return gatewayAggregatorService.createReviews(reviewId);
     }
+
+    // Scatter Gather
 
     @GetMapping(value = "/scattergather/delta/{source}/{destination}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Delta> getDeltaFlights(@PathVariable(name = "source") String source,
@@ -72,48 +90,97 @@ public class ExternalServiceRestController {
         return scatterGatherService.streamJetBlueAirlineFlights(source, destination);
     }
 
+    // Service Orchestrator - Parallel
+
     @GetMapping("/serviceorchestrator-parallel/product/{productId}")
-    public Mono<PsoProduct> getProductWithServiceOrchestrator(@PathVariable(name = "productId") int productId) {
-        return serviceOrchestratorService.createProductForServiceOrchestrator(productId);
+    public Mono<PsoProduct> getProductWithServiceOrchestratorParallel(@PathVariable(name = "productId") int productId) {
+        return serviceOrchestratorParallelService.createProductForServiceOrchestrator(productId);
     }
 
     @GetMapping("/serviceorchestrator-parallel/user/{userId}")
-    public Mono<PsoUser> getUser(@PathVariable(name = "userId") int userId) {
-        return serviceOrchestratorService.createUser(userId);
+    public Mono<PsoUser> getUserWithServiceOrchestratorParallel(@PathVariable(name = "userId") int userId) {
+        return serviceOrchestratorParallelService.createUserForServiceOrchestrator(userId);
     }
 
     @PostMapping("/serviceorchestrator-parallel/user/deduct")
-    public Mono<PsoDeduct> deductAmount(@RequestBody PsoDeductPaymentRequest psoDeductPaymentRequest) {
-        return serviceOrchestratorService.deduct(psoDeductPaymentRequest);
+    public Mono<PsoDeduct> deductAmountWithServiceOrchestratorParallel(@RequestBody PsoDeductPaymentRequest psoDeductPaymentRequest) {
+        return serviceOrchestratorParallelService.deductForServiceOrchestrator(psoDeductPaymentRequest);
     }
 
     @PostMapping("/serviceorchestrator-parallel/user/refund")
-    public Mono<PsoRefund> refundAmount(@RequestBody PsoRefundPaymentRequest psoRefundPaymentRequest) {
-        return serviceOrchestratorService.refund(psoRefundPaymentRequest);
+    public Mono<PsoRefund> refundAmountWithServiceOrchestratorParallel(@RequestBody PsoRefundPaymentRequest psoRefundPaymentRequest) {
+        return serviceOrchestratorParallelService.refundForServiceOrchestrator(psoRefundPaymentRequest);
     }
 
     @GetMapping("/serviceorchestrator-parallel/inventory/{productId}")
-    public Integer getInventory(@PathVariable(name = "productId") int productId) {
-        return serviceOrchestratorService.countInventoryItems(productId);
+    public Integer getInventoryWithServiceOrchestratorParallel(@PathVariable(name = "productId") int productId) {
+        return serviceOrchestratorParallelService.countInventoryItemsForServiceOrchestrator(productId);
     }
 
     @PostMapping("/serviceorchestrator-parallel/inventory/deduct")
-    public Mono<PsoDeductInventory> deductInventory(@RequestBody PsoDeductInventoryRequest psoDeductInventoryRequest) {
-        return serviceOrchestratorService.createDeductedInventory(psoDeductInventoryRequest);
+    public Mono<PsoDeductInventory> deductInventoryWithServiceOrchestratorParallel(@RequestBody PsoDeductInventoryRequest psoDeductInventoryRequest) {
+        return serviceOrchestratorParallelService.createDeductedInventoryForServiceOrchestrator(psoDeductInventoryRequest);
     }
 
     @PostMapping("/serviceorchestrator-parallel/inventory/restore")
-    public Mono<PsoRestoreInventory> restoreInventory(@RequestBody PsoRestoreInventoryRequest psoRestoreInventoryRequest) {
-        return serviceOrchestratorService.createRestoredInventory(psoRestoreInventoryRequest);
+    public Mono<PsoRestoreInventory> restoreInventoryWithServiceOrchestratorParallel(@RequestBody PsoRestoreInventoryRequest psoRestoreInventoryRequest) {
+        return serviceOrchestratorParallelService.createRestoredInventoryForServiceOrchestrator(psoRestoreInventoryRequest);
     }
 
     @PostMapping("/serviceorchestrator-parallel/shipping/schedule")
-    public Mono<PsoScheduleShipping> scheduleShipping(@RequestBody PsoScheduleShippingRequest psoScheduleShippingRequest) {
-        return serviceOrchestratorService.createScheduleShipping(psoScheduleShippingRequest);
+    public Mono<PsoScheduleShipping> scheduleShippingWithServiceOrchestratorParallel(@RequestBody PsoScheduleShippingRequest psoScheduleShippingRequest) {
+        return serviceOrchestratorParallelService.createScheduleShippingForServiceOrchestrator(psoScheduleShippingRequest);
     }
 
     @PostMapping("/serviceorchestrator-parallel/shipping/cancel")
-    public Mono<ResponseEntity> cancelShipping(@RequestBody PsoCancelShippingRequest psoCancelShippingRequest) {
+    public Mono<ResponseEntity> cancelShippingWithServiceOrchestratorParallel(@RequestBody PsoCancelShippingRequest psoCancelShippingRequest) {
+        return Mono.just(new ResponseEntity<>(HttpStatus.OK));
+    }
+
+    // Service Orchestrator - Sequential
+
+    @GetMapping("/serviceorchestrator-sequential/product/{productId}")
+    public Mono<SsoProduct> getProductWithServiceOrchestratorSequential(@PathVariable(name = "productId") int productId) {
+        return serviceOrchestratorSequentialService.createProductForServiceOrchestrator(productId);
+    }
+
+    @GetMapping("/serviceorchestrator-sequential/user/{userId}")
+    public Mono<SsoUser> getUserWithServiceOrchestratorSequential(@PathVariable(name = "userId") int userId) {
+        return serviceOrchestratorSequentialService.createUserForServiceOrchestrator(userId);
+    }
+
+    @PostMapping("/serviceorchestrator-sequential/user/deduct")
+    public Mono<SsoDeduct> deductAmountWithServiceOrchestratorSequential(@RequestBody SsoDeductPaymentRequest ssoDeductPaymentRequest) {
+        return serviceOrchestratorSequentialService.deductForServiceOrchestrator(ssoDeductPaymentRequest);
+    }
+
+    @PostMapping("/serviceorchestrator-sequential/user/refund")
+    public Mono<SsoRefund> refundAmountWithServiceOrchestratorSequential(@RequestBody SsoRefundPaymentRequest ssoRefundPaymentRequest) {
+        return serviceOrchestratorSequentialService.refundForServiceOrchestrator(ssoRefundPaymentRequest);
+    }
+
+    @GetMapping("/serviceorchestrator-sequential/inventory/{productId}")
+    public Integer getInventoryWithServiceOrchestratorSequential(@PathVariable(name = "productId") int productId) {
+        return serviceOrchestratorSequentialService.countInventoryItemsForServiceOrchestrator(productId);
+    }
+
+    @PostMapping("/serviceorchestrator-sequential/inventory/deduct")
+    public Mono<SsoDeductInventory> deductInventoryWithServiceOrchestratorSequential(@RequestBody SsoDeductInventoryRequest ssoDeductInventoryRequest) {
+        return serviceOrchestratorSequentialService.createDeductedInventoryForServiceOrchestrator(ssoDeductInventoryRequest);
+    }
+
+    @PostMapping("/serviceorchestrator-sequential/inventory/restore")
+    public Mono<SsoRestoreInventory> restoreInventoryWithServiceOrchestratorSequential(@RequestBody SsoRestoreInventoryRequest ssoRestoreInventoryRequest) {
+        return serviceOrchestratorSequentialService.createRestoredInventoryForServiceOrchestrator(ssoRestoreInventoryRequest);
+    }
+
+    @PostMapping("/serviceorchestrator-sequential/shipping/schedule")
+    public Mono<SsoScheduleShipping> scheduleShippingWithServiceOrchestratorSequential(@RequestBody SsoScheduleShippingRequest ssoScheduleShippingRequest) {
+        return serviceOrchestratorSequentialService.createScheduleShippingForServiceOrchestrator(ssoScheduleShippingRequest);
+    }
+
+    @PostMapping("/serviceorchestrator-sequential/shipping/cancel")
+    public Mono<ResponseEntity> cancelShippingWithServiceOrchestratorSequential(@RequestBody PsoCancelShippingRequest psoCancelShippingRequest) {
         return Mono.just(new ResponseEntity<>(HttpStatus.OK));
     }
 }

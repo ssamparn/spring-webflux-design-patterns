@@ -3,23 +3,23 @@ package org.micro.service.sampleexternalservice.service;
 import com.github.javafaker.Faker;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoDeduct;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoDeductInventory;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoProduct;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoRefund;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoRestoreInventory;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoScheduleShipping;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoProduct;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoUser;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoScheduleShippingRequest;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoDeductPaymentRequest;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoDeductInventoryRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoDeductPaymentRequest;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoRefundPaymentRequest;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoRestoreInventoryRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoScheduleShippingRequest;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class ServiceOrchestratorService {
+public class ServiceOrchestratorParallelService {
 
     private Faker faker = new Faker();
 
@@ -39,7 +39,7 @@ public class ServiceOrchestratorService {
         return Mono.just(product);
     }
 
-    public Mono<PsoUser> createUser(Integer userId) {
+    public Mono<PsoUser> createUserForServiceOrchestrator(Integer userId) {
 
         PsoUser psoUser = PsoUser.builder()
                 .userId(userId)
@@ -56,7 +56,7 @@ public class ServiceOrchestratorService {
         return Mono.just(psoUser);
     }
 
-    public Mono<PsoDeduct> deduct(PsoDeductPaymentRequest psoDeductPaymentRequest) {
+    public Mono<PsoDeduct> deductForServiceOrchestrator(PsoDeductPaymentRequest psoDeductPaymentRequest) {
         balance = balance - psoDeductPaymentRequest.getAmount();
 
         PsoDeduct psoDeduct = PsoDeduct.builder()
@@ -69,7 +69,7 @@ public class ServiceOrchestratorService {
         return Mono.just(psoDeduct);
     }
 
-    public Mono<PsoRefund> refund(PsoRefundPaymentRequest psoRefundPaymentRequest) {
+    public Mono<PsoRefund> refundForServiceOrchestrator(PsoRefundPaymentRequest psoRefundPaymentRequest) {
         balance = balance + psoRefundPaymentRequest.getAmount();
 
         PsoRefund psoRefund = PsoRefund.builder()
@@ -82,11 +82,11 @@ public class ServiceOrchestratorService {
         return Mono.just(psoRefund);
     }
 
-    public Integer countInventoryItems(int productId) {
+    public Integer countInventoryItemsForServiceOrchestrator(int productId) {
         return inventoryItems;
     }
 
-    public Mono<PsoDeductInventory> createDeductedInventory(PsoDeductInventoryRequest psoDeductInventoryRequest) {
+    public Mono<PsoDeductInventory> createDeductedInventoryForServiceOrchestrator(PsoDeductInventoryRequest psoDeductInventoryRequest) {
         inventoryItems = inventoryItems - psoDeductInventoryRequest.getQuantity();
 
         PsoDeductInventory psoDeductInventory = PsoDeductInventory.builder()
@@ -99,7 +99,7 @@ public class ServiceOrchestratorService {
         return Mono.just(psoDeductInventory);
     }
 
-    public Mono<PsoRestoreInventory> createRestoredInventory(PsoRestoreInventoryRequest psoRestoreInventoryRequest) {
+    public Mono<PsoRestoreInventory> createRestoredInventoryForServiceOrchestrator(PsoRestoreInventoryRequest psoRestoreInventoryRequest) {
         inventoryItems = inventoryItems + psoRestoreInventoryRequest.getQuantity();
 
         PsoRestoreInventory psoRestoreInventory = PsoRestoreInventory.builder()
@@ -112,7 +112,7 @@ public class ServiceOrchestratorService {
         return Mono.just(psoRestoreInventory);
     }
 
-    public Mono<PsoScheduleShipping> createScheduleShipping(PsoScheduleShippingRequest psoScheduleShippingRequest) {
+    public Mono<PsoScheduleShipping> createScheduleShippingForServiceOrchestrator(PsoScheduleShippingRequest psoScheduleShippingRequest) {
         PsoScheduleShipping psoScheduleShipping = PsoScheduleShipping.builder()
                 .orderId(psoScheduleShippingRequest.getOrderId())
                 .quantity(psoScheduleShippingRequest.getQuantity())

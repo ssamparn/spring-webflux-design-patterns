@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoUser;
 
 import java.util.UUID;
 
@@ -17,5 +16,5 @@ public class SsoScheduleShipping {
     private Integer quantity;
     private String status;
     private String expectedDelivery;
-    private PsoUser.Address address;
+    private SsoUser.Address address;
 }
