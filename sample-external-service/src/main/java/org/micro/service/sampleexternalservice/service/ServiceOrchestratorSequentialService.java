@@ -2,10 +2,10 @@ package org.micro.service.sampleexternalservice.service;
 
 import com.github.javafaker.Faker;
 
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoDeduct;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoDeductPayment;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoDeductInventory;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoProduct;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoRefund;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoRefundPayment;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoRestoreInventory;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoScheduleShipping;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoUser;
@@ -57,10 +57,10 @@ public class ServiceOrchestratorSequentialService {
         return Mono.just(ssoUser);
     }
 
-    public Mono<SsoDeduct> deductForServiceOrchestrator(SsoDeductPaymentRequest ssoDeductPaymentRequest) {
+    public Mono<SsoDeductPayment> deductForServiceOrchestrator(SsoDeductPaymentRequest ssoDeductPaymentRequest) {
         balance = balance - ssoDeductPaymentRequest.getAmount();
 
-        SsoDeduct ssoDeduct = SsoDeduct.builder()
+        SsoDeductPayment ssoDeductPayment = SsoDeductPayment.builder()
                 .paymentId(ssoDeductPaymentRequest.getPaymentId())
                 .userId(ssoDeductPaymentRequest.getUserId())
                 .userName(userName)
@@ -68,20 +68,20 @@ public class ServiceOrchestratorSequentialService {
                 .status("SUCCESS")
                 .build();
 
-        return Mono.just(ssoDeduct);
+        return Mono.just(ssoDeductPayment);
     }
 
-    public Mono<SsoRefund> refundForServiceOrchestrator(SsoRefundPaymentRequest ssoRefundPaymentRequest) {
+    public Mono<SsoRefundPayment> refundForServiceOrchestrator(SsoRefundPaymentRequest ssoRefundPaymentRequest) {
         balance = balance + ssoRefundPaymentRequest.getAmount();
 
-        SsoRefund ssoRefund = SsoRefund.builder()
+        SsoRefundPayment ssoRefundPayment = SsoRefundPayment.builder()
                 .userId(ssoRefundPaymentRequest.getUserId())
                 .userName(userName)
                 .balance(balance)
                 .status("SUCCESS")
                 .build();
 
-        return Mono.just(ssoRefund);
+        return Mono.just(ssoRefundPayment);
     }
 
     public Integer countInventoryItemsForServiceOrchestrator(int productId) {

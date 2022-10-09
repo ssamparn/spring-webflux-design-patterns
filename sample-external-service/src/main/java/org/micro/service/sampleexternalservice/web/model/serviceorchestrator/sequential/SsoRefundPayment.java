@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SsoRefund {
+public class SsoRefundPayment {
     private Integer userId;
     private String userName;
     private Integer balance;

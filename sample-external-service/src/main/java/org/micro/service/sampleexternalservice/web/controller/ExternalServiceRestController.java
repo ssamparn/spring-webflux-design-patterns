@@ -20,10 +20,10 @@ import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.par
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoProduct;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoUser;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.*;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoDeduct;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoDeductPayment;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoDeductInventory;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoProduct;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoRefund;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoRefundPayment;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoRestoreInventory;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoScheduleShipping;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.SsoUser;
@@ -150,12 +150,12 @@ public class ExternalServiceRestController {
     }
 
     @PostMapping("/serviceorchestrator-sequential/user/deduct")
-    public Mono<SsoDeduct> deductAmountWithServiceOrchestratorSequential(@RequestBody SsoDeductPaymentRequest ssoDeductPaymentRequest) {
+    public Mono<SsoDeductPayment> deductAmountWithServiceOrchestratorSequential(@RequestBody SsoDeductPaymentRequest ssoDeductPaymentRequest) {
         return serviceOrchestratorSequentialService.deductForServiceOrchestrator(ssoDeductPaymentRequest);
     }
 
     @PostMapping("/serviceorchestrator-sequential/user/refund")
-    public Mono<SsoRefund> refundAmountWithServiceOrchestratorSequential(@RequestBody SsoRefundPaymentRequest ssoRefundPaymentRequest) {
+    public Mono<SsoRefundPayment> refundAmountWithServiceOrchestratorSequential(@RequestBody SsoRefundPaymentRequest ssoRefundPaymentRequest) {
         return serviceOrchestratorSequentialService.refundForServiceOrchestrator(ssoRefundPaymentRequest);
     }
 

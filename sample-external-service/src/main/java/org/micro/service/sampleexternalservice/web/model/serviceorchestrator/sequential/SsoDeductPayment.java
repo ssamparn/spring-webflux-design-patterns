@@ -11,7 +11,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SsoDeduct {
+public class SsoDeductPayment {
     private UUID paymentId;
     private Integer userId;
     private String userName;
