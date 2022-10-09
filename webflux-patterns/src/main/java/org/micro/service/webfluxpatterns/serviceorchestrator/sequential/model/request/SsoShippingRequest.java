@@ -10,7 +10,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor(staticName = "create")
 public class SsoShippingRequest {
+    private UUID inventoryId;
     private Integer quantity;
     private Integer userId;
-    private UUID orderId;
 }

@@ -10,10 +10,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor(staticName = "create")
 public class SsoShippingResponse {
-    private UUID orderId;
+    private UUID shippingId;
     private Integer quantity;
     private SsoStatus psoStatus;
     private String expectedDelivery;
     private SsoAddress ssoAddress;
-
 }
