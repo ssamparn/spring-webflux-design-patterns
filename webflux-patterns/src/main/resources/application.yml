@@ -9,8 +9,12 @@ base:
     delta: http://localhost:8080/scattergather/delta
     frontier: http://localhost:8080/scattergather/frontier
     jet-blue: http://localhost:8080/scattergather/jetblue
-    sop-product: http://localhost:8080/serviceorchestrator-parallel/product
-    sop-user: http://localhost:8080/serviceorchestrator-parallel/user
-    sop-inventory: http://localhost:8080/serviceorchestrator-parallel/inventory
-    sop-shipping: http://localhost:8080/serviceorchestrator-parallel/shipping
+    pso-product: http://localhost:8080/serviceorchestrator-parallel/product
+    pso-user: http://localhost:8080/serviceorchestrator-parallel/user
+    pso-inventory: http://localhost:8080/serviceorchestrator-parallel/inventory
+    pso-shipping: http://localhost:8080/serviceorchestrator-parallel/shipping
+    sso-product: http://localhost:8080/serviceorchestrator-sequential/product
+    sso-user: http://localhost:8080/serviceorchestrator-sequential/user
+    sso-inventory: http://localhost:8080/serviceorchestrator-sequential/inventory
+    sso-shipping: http://localhost:8080/serviceorchestrator-sequential/shipping
 

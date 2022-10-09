@@ -1,8 +1,8 @@
 package org.micro.service.webfluxpatterns.serviceorchestrator.parallel.client;
 
-import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.request.InventoryRequest;
-import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.response.InventoryResponse;
-import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.response.Status;
+import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.request.PsoInventoryRequest;
+import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.response.PsoInventoryResponse;
+import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.response.PsoStatus;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -16,36 +16,36 @@ public class PsoInventoryRestClient {
 
     private final WebClient webClient;
 
-    public PsoInventoryRestClient(@Value("${base.url.sop-inventory}") String baseUrl) {
+    public PsoInventoryRestClient(@Value("${base.url.pso-inventory}") String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();
     }
 
-    public Mono<InventoryResponse> deductInventory(InventoryRequest inventoryRequest) {
+    public Mono<PsoInventoryResponse> deductInventory(PsoInventoryRequest inventoryRequest) {
         return callInventoryService(DEDUCT, inventoryRequest);
     }
 
-    public Mono<InventoryResponse> restoreInventory(InventoryRequest inventoryRequest) {
+    public Mono<PsoInventoryResponse> restoreInventory(PsoInventoryRequest inventoryRequest) {
         return callInventoryService(RESTORE, inventoryRequest);
     }
 
-    public Mono<InventoryResponse> callInventoryService(String endpoint, InventoryRequest inventoryRequest) {
+    public Mono<PsoInventoryResponse> callInventoryService(String endpoint, PsoInventoryRequest inventoryRequest) {
         return this.webClient
                 .post()
                 .uri("/" + endpoint)
                 .bodyValue(inventoryRequest)
                 .retrieve()
-                .bodyToMono(InventoryResponse.class)
+                .bodyToMono(PsoInventoryResponse.class)
                 .onErrorReturn(this.buildErrorInventoryResponse(inventoryRequest));
     }
 
-    private InventoryResponse buildErrorInventoryResponse(InventoryRequest request) {
-        return InventoryResponse.create(
+    private PsoInventoryResponse buildErrorInventoryResponse(PsoInventoryRequest request) {
+        return PsoInventoryResponse.create(
                 request.getProductId(),
                 request.getQuantity(),
                 null,
-                Status.FAILED
+                PsoStatus.FAILED
         );
     }
 }
