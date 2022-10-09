@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CancelShippingRequest {
+public class PsoCancelShippingRequest {
     private String orderId;
     private Integer quantity;
     private Integer userId;

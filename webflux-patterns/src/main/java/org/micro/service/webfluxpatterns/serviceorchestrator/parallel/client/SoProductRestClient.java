@@ -11,7 +11,7 @@ public class SoProductRestClient {
 
     private final WebClient webClient;
 
-    public SoProductRestClient(@Value("${base.url.so-product}") String baseUrl) {
+    public SoProductRestClient(@Value("${base.url.sop-product}") String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();

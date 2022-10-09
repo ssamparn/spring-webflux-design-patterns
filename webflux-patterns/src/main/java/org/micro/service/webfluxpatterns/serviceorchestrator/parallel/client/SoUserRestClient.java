@@ -16,7 +16,7 @@ public class SoUserRestClient {
 
     private final WebClient webClient;
 
-    public SoUserRestClient(@Value("${base.url.so-user}") String baseUrl) {
+    public SoUserRestClient(@Value("${base.url.sop-user}") String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();

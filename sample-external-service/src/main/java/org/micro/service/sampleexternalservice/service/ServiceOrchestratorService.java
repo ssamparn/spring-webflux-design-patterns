@@ -1,18 +1,18 @@
 package org.micro.service.sampleexternalservice.service;
 
 import com.github.javafaker.Faker;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.Deduct;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.DeductInventory;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.Refund;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.RestoreInventory;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.ScheduleShipping;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.SoProduct;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.User;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.ScheduleShippingRequest;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.DeductAmountRequest;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.DeductInventoryRequest;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.RefundAmountRequest;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.RestoreInventoryRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoDeduct;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoDeductInventory;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoRefund;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoRestoreInventory;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoScheduleShipping;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoProduct;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoUser;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoScheduleShippingRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoDeductAmountRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoDeductInventoryRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoRefundAmountRequest;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.request.PsoRestoreInventoryRequest;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -27,9 +27,9 @@ public class ServiceOrchestratorService {
     private Integer balance = faker.number().numberBetween(100, 200);
     private Integer inventoryItems = faker.number().numberBetween(500, 1000);
 
-    public Mono<SoProduct> createProductForServiceOrchestrator(Integer productId) {
+    public Mono<PsoProduct> createProductForServiceOrchestrator(Integer productId) {
 
-        SoProduct product = SoProduct.builder()
+        PsoProduct product = PsoProduct.builder()
                 .productId(productId)
                 .productDescription(faker.commerce().productName())
                 .productCategory(faker.commerce().material())
@@ -39,13 +39,13 @@ public class ServiceOrchestratorService {
         return Mono.just(product);
     }
 
-    public Mono<User> createUser(Integer userId) {
+    public Mono<PsoUser> createUser(Integer userId) {
 
-        User user = User.builder()
+        PsoUser psoUser = PsoUser.builder()
                 .userId(userId)
                 .userName(userName)
                 .balance(balance)
-                .address(User.Address.create(
+                .address(PsoUser.Address.create(
                         faker.address().streetAddress(),
                         faker.address().cityName(),
                         faker.address().state(),
@@ -53,78 +53,78 @@ public class ServiceOrchestratorService {
                 ))
                 .build();
 
-        return Mono.just(user);
+        return Mono.just(psoUser);
     }
 
-    public Mono<Deduct> deduct(DeductAmountRequest deductAmountRequest) {
-        balance = balance - deductAmountRequest.getAmount();
+    public Mono<PsoDeduct> deduct(PsoDeductAmountRequest psoDeductAmountRequest) {
+        balance = balance - psoDeductAmountRequest.getAmount();
 
-        Deduct deduct = Deduct.builder()
-                .userId(deductAmountRequest.getUserId())
+        PsoDeduct psoDeduct = PsoDeduct.builder()
+                .userId(psoDeductAmountRequest.getUserId())
                 .userName(userName)
                 .balance(balance)
                 .status("SUCCESS")
                 .build();
 
-        return Mono.just(deduct);
+        return Mono.just(psoDeduct);
     }
 
-    public Mono<Refund> refund(RefundAmountRequest refundAmountRequest) {
-        balance = balance + refundAmountRequest.getAmount();
+    public Mono<PsoRefund> refund(PsoRefundAmountRequest psoRefundAmountRequest) {
+        balance = balance + psoRefundAmountRequest.getAmount();
 
-        Refund refund = Refund.builder()
-                .userId(refundAmountRequest.getUserId())
+        PsoRefund psoRefund = PsoRefund.builder()
+                .userId(psoRefundAmountRequest.getUserId())
                 .userName(userName)
                 .balance(balance)
                 .status("SUCCESS")
                 .build();
 
-        return Mono.just(refund);
+        return Mono.just(psoRefund);
     }
 
     public Integer countInventoryItems(int productId) {
         return inventoryItems;
     }
 
-    public Mono<DeductInventory> createDeductedInventory(DeductInventoryRequest deductInventoryRequest) {
-        inventoryItems = inventoryItems - deductInventoryRequest.getQuantity();
+    public Mono<PsoDeductInventory> createDeductedInventory(PsoDeductInventoryRequest psoDeductInventoryRequest) {
+        inventoryItems = inventoryItems - psoDeductInventoryRequest.getQuantity();
 
-        DeductInventory deductInventory = DeductInventory.builder()
-                .productId(deductInventoryRequest.getProductId())
-                .quantity(deductInventoryRequest.getQuantity())
+        PsoDeductInventory psoDeductInventory = PsoDeductInventory.builder()
+                .productId(psoDeductInventoryRequest.getProductId())
+                .quantity(psoDeductInventoryRequest.getQuantity())
                 .remainingQuantity(inventoryItems)
                 .status("SUCCESS")
                 .build();
 
-        return Mono.just(deductInventory);
+        return Mono.just(psoDeductInventory);
     }
 
-    public Mono<RestoreInventory> createRestoredInventory(RestoreInventoryRequest restoreInventoryRequest) {
-        inventoryItems = inventoryItems + restoreInventoryRequest.getQuantity();
+    public Mono<PsoRestoreInventory> createRestoredInventory(PsoRestoreInventoryRequest psoRestoreInventoryRequest) {
+        inventoryItems = inventoryItems + psoRestoreInventoryRequest.getQuantity();
 
-        RestoreInventory restoreInventory = RestoreInventory.builder()
-                .productId(restoreInventoryRequest.getProductId())
-                .quantity(restoreInventoryRequest.getQuantity())
+        PsoRestoreInventory psoRestoreInventory = PsoRestoreInventory.builder()
+                .productId(psoRestoreInventoryRequest.getProductId())
+                .quantity(psoRestoreInventoryRequest.getQuantity())
                 .remainingQuantity(inventoryItems)
                 .status("SUCCESS")
                 .build();
 
-        return Mono.just(restoreInventory);
+        return Mono.just(psoRestoreInventory);
     }
 
-    public Mono<ScheduleShipping> createScheduleShipping(ScheduleShippingRequest scheduleShippingRequest) {
-        ScheduleShipping scheduleShipping = ScheduleShipping.builder()
-                .orderId(scheduleShippingRequest.getOrderId())
-                .quantity(scheduleShippingRequest.getQuantity())
+    public Mono<PsoScheduleShipping> createScheduleShipping(PsoScheduleShippingRequest psoScheduleShippingRequest) {
+        PsoScheduleShipping psoScheduleShipping = PsoScheduleShipping.builder()
+                .orderId(psoScheduleShippingRequest.getOrderId())
+                .quantity(psoScheduleShippingRequest.getQuantity())
                 .status("SUCCESS")
                 .expectedDelivery(faker.date().future(20, TimeUnit.DAYS).toString())
-                .address(User.Address.create(
+                .address(PsoUser.Address.create(
                         faker.address().streetAddress(),
                         faker.address().cityName(),
                         faker.address().state(),
                         faker.address().zipCode()
                 ))
                 .build();
-        return Mono.just(scheduleShipping);
+        return Mono.just(psoScheduleShipping);
     }
 }

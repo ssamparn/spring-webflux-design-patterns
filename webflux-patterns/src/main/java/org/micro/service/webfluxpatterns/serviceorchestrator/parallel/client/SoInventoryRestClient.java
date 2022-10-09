@@ -16,7 +16,7 @@ public class SoInventoryRestClient {
 
     private final WebClient webClient;
 
-    public SoInventoryRestClient(@Value("${base.url.so-inventory}") String baseUrl) {
+    public SoInventoryRestClient(@Value("${base.url.sop-inventory}") String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();

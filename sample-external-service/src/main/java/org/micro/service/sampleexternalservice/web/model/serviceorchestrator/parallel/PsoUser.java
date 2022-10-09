@@ -9,9 +9,18 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Refund {
+public class PsoUser {
     private Integer userId;
     private String userName;
     private Integer balance;
-    private String status;
+    private Address address;
+
+    @Data
+    @AllArgsConstructor(staticName = "create")
+    public static class Address {
+        private String street;
+        private String city;
+        private String state;
+        private String zipCode;
+    }
 }

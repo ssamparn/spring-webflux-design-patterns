@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Deduct {
-    private Integer userId;
-    private String userName;
-    private Integer balance;
+public class PsoDeductInventory {
+    private Integer productId;
+    private Integer quantity;
+    private Integer remainingQuantity;
     private String status;
 }

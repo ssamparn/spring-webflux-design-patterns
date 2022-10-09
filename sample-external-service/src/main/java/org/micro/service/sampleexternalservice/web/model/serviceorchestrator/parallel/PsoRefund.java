@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RestoreInventory {
-    private Integer productId;
-    private Integer quantity;
-    private Integer remainingQuantity;
+public class PsoRefund {
+    private Integer userId;
+    private String userName;
+    private Integer balance;
     private String status;
 }

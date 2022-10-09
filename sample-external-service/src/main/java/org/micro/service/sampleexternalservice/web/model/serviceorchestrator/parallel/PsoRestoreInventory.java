@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ScheduleShipping {
-    private String orderId;
+public class PsoRestoreInventory {
+    private Integer productId;
     private Integer quantity;
+    private Integer remainingQuantity;
     private String status;
-    private String expectedDelivery;
-    private User.Address address;
 }

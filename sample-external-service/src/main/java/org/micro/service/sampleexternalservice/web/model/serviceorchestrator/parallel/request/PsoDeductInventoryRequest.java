@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RestoreInventoryRequest {
+public class PsoDeductInventoryRequest {
     private String orderId;
     private Integer productId;
     private Integer quantity;

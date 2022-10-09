@@ -16,7 +16,7 @@ public class SoShippingRestClient {
 
     private final WebClient webClient;
 
-    public SoShippingRestClient(@Value("${base.url.so-shipping}") String baseUrl) {
+    public SoShippingRestClient(@Value("${base.url.sop-shipping}") String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();
