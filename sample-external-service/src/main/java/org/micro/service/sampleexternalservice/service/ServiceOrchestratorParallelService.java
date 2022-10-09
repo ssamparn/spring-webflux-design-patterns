@@ -1,10 +1,10 @@
 package org.micro.service.sampleexternalservice.service;
 
 import com.github.javafaker.Faker;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoDeduct;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoDeductPayment;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoDeductInventory;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoProduct;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoRefund;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoRefundPayment;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoRestoreInventory;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoScheduleShipping;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoUser;
@@ -56,30 +56,30 @@ public class ServiceOrchestratorParallelService {
         return Mono.just(psoUser);
     }
 
-    public Mono<PsoDeduct> deductForServiceOrchestrator(PsoDeductPaymentRequest psoDeductPaymentRequest) {
+    public Mono<PsoDeductPayment> deductForServiceOrchestrator(PsoDeductPaymentRequest psoDeductPaymentRequest) {
         balance = balance - psoDeductPaymentRequest.getAmount();
 
-        PsoDeduct psoDeduct = PsoDeduct.builder()
+        PsoDeductPayment psoDeductPayment = PsoDeductPayment.builder()
                 .userId(psoDeductPaymentRequest.getUserId())
                 .userName(userName)
                 .balance(balance)
                 .status("SUCCESS")
                 .build();
 
-        return Mono.just(psoDeduct);
+        return Mono.just(psoDeductPayment);
     }
 
-    public Mono<PsoRefund> refundForServiceOrchestrator(PsoRefundPaymentRequest psoRefundPaymentRequest) {
+    public Mono<PsoRefundPayment> refundForServiceOrchestrator(PsoRefundPaymentRequest psoRefundPaymentRequest) {
         balance = balance + psoRefundPaymentRequest.getAmount();
 
-        PsoRefund psoRefund = PsoRefund.builder()
+        PsoRefundPayment psoRefundPayment = PsoRefundPayment.builder()
                 .userId(psoRefundPaymentRequest.getUserId())
                 .userName(userName)
                 .balance(balance)
                 .status("SUCCESS")
                 .build();
 
-        return Mono.just(psoRefund);
+        return Mono.just(psoRefundPayment);
     }
 
     public Integer countInventoryItemsForServiceOrchestrator(int productId) {

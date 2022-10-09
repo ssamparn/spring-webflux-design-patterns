@@ -12,9 +12,9 @@ import org.micro.service.sampleexternalservice.web.model.scattergather.Delta;
 import org.micro.service.sampleexternalservice.web.model.scattergather.Frontier;
 import org.micro.service.sampleexternalservice.web.model.scattergather.JetBlue;
 import org.micro.service.sampleexternalservice.web.model.scattergather.request.FrontierRequest;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoDeduct;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoDeductPayment;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoDeductInventory;
-import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoRefund;
+import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoRefundPayment;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoRestoreInventory;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoScheduleShipping;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.parallel.PsoProduct;
@@ -103,12 +103,12 @@ public class ExternalServiceRestController {
     }
 
     @PostMapping("/serviceorchestrator-parallel/user/deduct")
-    public Mono<PsoDeduct> deductAmountWithServiceOrchestratorParallel(@RequestBody PsoDeductPaymentRequest psoDeductPaymentRequest) {
+    public Mono<PsoDeductPayment> deductAmountWithServiceOrchestratorParallel(@RequestBody PsoDeductPaymentRequest psoDeductPaymentRequest) {
         return serviceOrchestratorParallelService.deductForServiceOrchestrator(psoDeductPaymentRequest);
     }
 
     @PostMapping("/serviceorchestrator-parallel/user/refund")
-    public Mono<PsoRefund> refundAmountWithServiceOrchestratorParallel(@RequestBody PsoRefundPaymentRequest psoRefundPaymentRequest) {
+    public Mono<PsoRefundPayment> refundAmountWithServiceOrchestratorParallel(@RequestBody PsoRefundPaymentRequest psoRefundPaymentRequest) {
         return serviceOrchestratorParallelService.refundForServiceOrchestrator(psoRefundPaymentRequest);
     }
 
