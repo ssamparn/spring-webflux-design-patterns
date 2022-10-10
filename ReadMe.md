@@ -6,6 +6,8 @@
 
 ### Scatter Gather Pattern
 
+![img_6.png](img_6.png)
+
 ![img_1.png](img_1.png)
 
 ### Difference between Gateway Aggregator Pattern & Scatter Gather Pattern
@@ -27,4 +29,12 @@
 #### Service Layer Implementation - Sequential
 
 ![img_4.png](img_4.png)
+
+### Splitter Pattern
+
+![img_7.png](img_7.png)
+
+![img_8.png](img_8.png)
+
+
 

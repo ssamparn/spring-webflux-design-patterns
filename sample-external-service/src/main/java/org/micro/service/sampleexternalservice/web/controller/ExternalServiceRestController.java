@@ -32,6 +32,10 @@ import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.seq
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.request.SsoRefundPaymentRequest;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.request.SsoRestoreInventoryRequest;
 import org.micro.service.sampleexternalservice.web.model.serviceorchestrator.sequential.request.SsoScheduleShippingRequest;
+import org.micro.service.sampleexternalservice.web.model.splitter.request.CarRequest;
+import org.micro.service.sampleexternalservice.web.model.splitter.request.HotelRequest;
+import org.micro.service.sampleexternalservice.web.model.splitter.response.CarResponse;
+import org.micro.service.sampleexternalservice.web.model.splitter.response.HotelResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -183,4 +187,16 @@ public class ExternalServiceRestController {
     public Mono<ResponseEntity> cancelShippingWithServiceOrchestratorSequential(@RequestBody PsoCancelShippingRequest psoCancelShippingRequest) {
         return Mono.just(new ResponseEntity<>(HttpStatus.OK));
     }
+
+    // Splitter
+    @PostMapping("/splitter/car/reserve")
+    public Flux<CarResponse> reserveCar(@RequestBody CarRequest carRequestFlux) {
+        return null;
+    }
+
+    @PostMapping("/splitter/hotel/reserve")
+    public Flux<HotelResponse> reserveHotel(@RequestBody HotelRequest hotelRequestFlux) {
+        return null;
+    }
+
 }
