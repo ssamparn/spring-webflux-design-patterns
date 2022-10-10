@@ -42,7 +42,7 @@ public class SsoShippingRestClient {
 
     private SsoShippingResponse buildErrorShippingResponse(SsoShippingRequest request) {
         return SsoShippingResponse.create(
-                request.getOrderId(),
+                null,
                 request.getQuantity(),
                 SsoStatus.FAILED,
                 null,

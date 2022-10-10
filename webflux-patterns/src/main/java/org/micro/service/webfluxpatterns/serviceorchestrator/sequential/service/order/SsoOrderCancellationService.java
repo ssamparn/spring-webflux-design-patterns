@@ -18,7 +18,7 @@ public class SsoOrderCancellationService {
     private Flux<SsoOrchestrationRequestContext> oCtxFlux;
 
     @Autowired
-    private List<SsoServiceOrchestrator> psoServiceOrchestrators;
+    private List<SsoServiceOrchestrator> ssoServiceOrchestrators;
 
     @PostConstruct
     public void init() {
@@ -31,7 +31,7 @@ public class SsoOrderCancellationService {
                 .asFlux()
                 .publishOn(Schedulers.boundedElastic());
 
-        psoServiceOrchestrators
+        ssoServiceOrchestrators
                 .forEach(orchestrator -> this.oCtxFlux.subscribe(orchestrator.cancel()));
     }
 

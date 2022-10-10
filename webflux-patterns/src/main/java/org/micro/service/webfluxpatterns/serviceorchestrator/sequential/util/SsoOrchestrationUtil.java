@@ -7,13 +7,7 @@ import org.micro.service.webfluxpatterns.serviceorchestrator.sequential.model.re
 
 public class SsoOrchestrationUtil {
 
-    public static void buildRequestContext(SsoOrchestrationRequestContext ctx) {
-        buildPaymentRequest(ctx);
-        buildInventoryRequest(ctx);
-        buildShippingRequest(ctx);
-    }
-
-    private static void buildPaymentRequest(SsoOrchestrationRequestContext ctx) {
+    public static void buildPaymentRequest(SsoOrchestrationRequestContext ctx) {
         SsoPaymentRequest paymentRequest = SsoPaymentRequest.create(
                 ctx.getSsoOrderRequest().getUserId(),
                 ctx.getProductPrice() * ctx.getSsoOrderRequest().getQuantity(),
@@ -22,20 +16,20 @@ public class SsoOrchestrationUtil {
         ctx.setSsoPaymentRequest(paymentRequest);
     }
 
-    private static void buildInventoryRequest(SsoOrchestrationRequestContext ctx) {
+    public static void buildInventoryRequest(SsoOrchestrationRequestContext ctx) {
         SsoInventoryRequest inventoryRequest = SsoInventoryRequest.create(
-                ctx.getOrderId(),
+                ctx.getSsoPaymentResponse().getPaymentId(),
                 ctx.getSsoOrderRequest().getProductId(),
                 ctx.getSsoOrderRequest().getQuantity()
         );
         ctx.setInventoryRequest(inventoryRequest);
     }
 
-    private static void buildShippingRequest(SsoOrchestrationRequestContext ctx) {
+    public static void buildShippingRequest(SsoOrchestrationRequestContext ctx) {
         SsoShippingRequest shippingRequest = SsoShippingRequest.create(
+                ctx.getSsoInventoryResponse().getInventoryId(),
                 ctx.getSsoOrderRequest().getQuantity(),
-                ctx.getSsoOrderRequest().getUserId(),
-                ctx.getOrderId()
+                ctx.getSsoOrderRequest().getUserId()
         );
         ctx.setSsoShippingRequest(shippingRequest);
     }

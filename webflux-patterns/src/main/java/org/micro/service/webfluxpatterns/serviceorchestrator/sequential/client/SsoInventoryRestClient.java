@@ -42,6 +42,7 @@ public class SsoInventoryRestClient {
 
     private SsoInventoryResponse buildErrorInventoryResponse(SsoInventoryRequest request) {
         return SsoInventoryResponse.create(
+                null,
                 request.getProductId(),
                 request.getQuantity(),
                 null,

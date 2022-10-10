@@ -42,6 +42,7 @@ public class SsoUserRestClient {
 
     private SsoPaymentResponse buildErrorPaymentResponse(SsoPaymentRequest request) {
         return SsoPaymentResponse.create(
+                null,
                 request.getUserId(),
                 null,
                 request.getAmount(),
