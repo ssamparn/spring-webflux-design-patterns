@@ -1,8 +1,10 @@
-package org.micro.service.webfluxpatterns.gatewayaggregator.model;
+package org.micro.service.webfluxpatterns.gatewayaggregator.web.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.micro.service.webfluxpatterns.gatewayaggregator.model.Price;
+import org.micro.service.webfluxpatterns.gatewayaggregator.model.ReviewResponse;
 
 import java.util.List;
 

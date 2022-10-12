@@ -1,7 +1,7 @@
-package org.micro.service.webfluxpatterns.serviceorchestrator.parallel.controller;
+package org.micro.service.webfluxpatterns.serviceorchestrator.parallel.web.controller;
 
-import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.request.PsoOrderRequest;
-import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.response.PsoOrderResponse;
+import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.web.model.PsoOrderRequest;
+import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.web.model.PsoOrderResponse;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.service.order.PsoOrderServiceOrchestrator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

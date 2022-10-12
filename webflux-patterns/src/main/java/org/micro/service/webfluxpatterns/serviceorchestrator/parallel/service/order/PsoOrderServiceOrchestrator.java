@@ -2,8 +2,8 @@ package org.micro.service.webfluxpatterns.serviceorchestrator.parallel.service.o
 
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.client.PsoProductRestClient;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.PsoOrchestrationRequestContext;
-import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.request.PsoOrderRequest;
-import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.response.PsoOrderResponse;
+import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.web.model.PsoOrderRequest;
+import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.web.model.PsoOrderResponse;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.response.PsoProductResponse;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.response.PsoStatus;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.util.PsoDebugUtil;

@@ -3,7 +3,7 @@ package org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model;
 import lombok.Data;
 import lombok.ToString;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.request.PsoInventoryRequest;
-import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.request.PsoOrderRequest;
+import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.web.model.PsoOrderRequest;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.request.PsoPaymentRequest;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.request.PsoShippingRequest;
 import org.micro.service.webfluxpatterns.serviceorchestrator.parallel.model.response.PsoInventoryResponse;

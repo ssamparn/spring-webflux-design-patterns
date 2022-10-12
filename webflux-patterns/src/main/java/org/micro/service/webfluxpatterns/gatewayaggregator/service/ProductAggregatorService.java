@@ -5,7 +5,7 @@ import org.micro.service.webfluxpatterns.gatewayaggregator.client.GaProductRestC
 import org.micro.service.webfluxpatterns.gatewayaggregator.client.GaPromotionRestClient;
 import org.micro.service.webfluxpatterns.gatewayaggregator.client.GaReviewRestClient;
 import org.micro.service.webfluxpatterns.gatewayaggregator.model.Price;
-import org.micro.service.webfluxpatterns.gatewayaggregator.model.ProductAggregate;
+import org.micro.service.webfluxpatterns.gatewayaggregator.web.model.ProductAggregate;
 import org.micro.service.webfluxpatterns.gatewayaggregator.model.ProductResponse;
 import org.micro.service.webfluxpatterns.gatewayaggregator.model.PromotionResponse;
 import org.micro.service.webfluxpatterns.gatewayaggregator.model.ReviewResponse;

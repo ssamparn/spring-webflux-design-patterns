@@ -1,7 +1,7 @@
-package org.micro.service.webfluxpatterns.serviceorchestrator.sequential.controller;
+package org.micro.service.webfluxpatterns.serviceorchestrator.sequential.web.controller;
 
-import org.micro.service.webfluxpatterns.serviceorchestrator.sequential.model.request.SsoOrderRequest;
-import org.micro.service.webfluxpatterns.serviceorchestrator.sequential.model.response.SsoOrderResponse;
+import org.micro.service.webfluxpatterns.serviceorchestrator.sequential.web.model.SsoOrderRequest;
+import org.micro.service.webfluxpatterns.serviceorchestrator.sequential.web.model.SsoOrderResponse;
 import org.micro.service.webfluxpatterns.serviceorchestrator.sequential.service.order.SsoOrderServiceOrchestrator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,8 +1,10 @@
-package org.micro.service.webfluxpatterns.serviceorchestrator.sequential.model.response;
+package org.micro.service.webfluxpatterns.serviceorchestrator.sequential.web.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.micro.service.webfluxpatterns.serviceorchestrator.sequential.model.response.SsoAddress;
+import org.micro.service.webfluxpatterns.serviceorchestrator.sequential.model.response.SsoStatus;
 
 import java.util.UUID;
 

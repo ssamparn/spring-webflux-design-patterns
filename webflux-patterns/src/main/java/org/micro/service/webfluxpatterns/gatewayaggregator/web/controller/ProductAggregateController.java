@@ -1,6 +1,6 @@
-package org.micro.service.webfluxpatterns.gatewayaggregator.controller;
+package org.micro.service.webfluxpatterns.gatewayaggregator.web.controller;
 
-import org.micro.service.webfluxpatterns.gatewayaggregator.model.ProductAggregate;
+import org.micro.service.webfluxpatterns.gatewayaggregator.web.model.ProductAggregate;
 import org.micro.service.webfluxpatterns.gatewayaggregator.service.ProductAggregatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
