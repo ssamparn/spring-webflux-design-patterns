@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.time.LocalDate;
 
 @Component
@@ -25,6 +26,7 @@ public class GaPromotionRestClient {
                 .uri("/{promotionId}", productId)
                 .retrieve()
                 .bodyToMono(PromotionResponse.class)
+                .timeout(Duration.ofMillis(500))
                 .onErrorReturn(noPromotionResponse());
     }
 

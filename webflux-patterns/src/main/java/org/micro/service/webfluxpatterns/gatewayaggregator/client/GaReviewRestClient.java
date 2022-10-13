@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class GaReviewRestClient {
                 .retrieve()
                 .bodyToFlux(ReviewResponse.class)
                 .collectList()
+                .timeout(Duration.ofMillis(500))
                 .onErrorReturn(Collections.emptyList());
     }
 }
