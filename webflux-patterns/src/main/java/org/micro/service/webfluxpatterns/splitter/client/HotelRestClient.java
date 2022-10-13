@@ -11,16 +11,16 @@ import reactor.core.publisher.Mono;
 @Service
 public class HotelRestClient {
 
-    private final WebClient hotelClinet;
+    private final WebClient hotelClient;
 
     public HotelRestClient(@Value("${base.url.hotel}") String baseUrl) {
-        this.hotelClinet = WebClient.builder()
+        this.hotelClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();
     }
 
     public Flux<HotelReservationResponse> reserve(Flux<HotelReservationRequest> hotelRequestFlux) {
-        return this.hotelClinet
+        return this.hotelClient
                 .post()
                 .body(hotelRequestFlux, HotelReservationRequest.class)
                 .retrieve()

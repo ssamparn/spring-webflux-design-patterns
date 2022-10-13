@@ -13,8 +13,8 @@ import java.util.UUID;
 public class CarReservationResponse {
     private UUID reservationId;
     private String city;
-    private LocalDate pickupTime;
-    private LocalDate dropTime;
+    private LocalDate pickupDate;
+    private LocalDate dropDate;
     private String category;
     private Integer price;
 }

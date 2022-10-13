@@ -11,16 +11,16 @@ import reactor.core.publisher.Mono;
 @Service
 public class CarRestClient {
 
-    private final WebClient carClinet;
+    private final WebClient carClient;
 
     public CarRestClient(@Value("${base.url.car}") String baseUrl) {
-        this.carClinet = WebClient.builder()
+        this.carClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();
     }
 
     public Flux<CarReservationResponse> reserve(Flux<CarReservationRequest> carRequestFlux) {
-        return this.carClinet
+        return this.carClient
                 .post()
                 .body(carRequestFlux, CarReservationRequest.class)
                 .retrieve()
