@@ -22,11 +22,20 @@ public class CarBookingHandler implements BookingHandler {
     }
 
     @Override
-    public Flux<ItemBookingResponse> reserve(Flux<ItemBookingRequest> itemBookingRequestFlux) {
+    public Flux<ItemBookingResponse> reserveBooking(Flux<ItemBookingRequest> itemBookingRequestFlux) {
         return itemBookingRequestFlux
                 .map(this::toCarReservationRequest)
                 .transform(carReservationRequestFlux -> this.carRestClient.reserve(carReservationRequestFlux))
                 .map(this::toItemBookingResponse);
+    }
+
+    private CarReservationRequest toCarReservationRequest(ItemBookingRequest itemBookingRequest) {
+        return CarReservationRequest.create(
+                itemBookingRequest.getCategory(),
+                itemBookingRequest.getCity(),
+                itemBookingRequest.getFromDate(),
+                itemBookingRequest.getToDate()
+        );
     }
 
     private ItemBookingResponse toItemBookingResponse(CarReservationResponse carReservationResponse) {
@@ -38,15 +47,6 @@ public class CarBookingHandler implements BookingHandler {
                 carReservationResponse.getPickupDate(),
                 carReservationResponse.getDropDate(),
                 carReservationResponse.getPrice()
-        );
-    }
-
-    private CarReservationRequest toCarReservationRequest(ItemBookingRequest itemBookingRequest) {
-        return CarReservationRequest.create(
-            itemBookingRequest.getCategory(),
-            itemBookingRequest.getCity(),
-            itemBookingRequest.getFromDate(),
-            itemBookingRequest.getToDate()
         );
     }
 }

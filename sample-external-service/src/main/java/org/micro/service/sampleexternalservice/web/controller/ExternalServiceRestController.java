@@ -5,6 +5,7 @@ import org.micro.service.sampleexternalservice.service.GatewayAggregatorService;
 import org.micro.service.sampleexternalservice.service.ScatterGatherService;
 import org.micro.service.sampleexternalservice.service.ServiceOrchestratorParallelService;
 import org.micro.service.sampleexternalservice.service.ServiceOrchestratorSequentialService;
+import org.micro.service.sampleexternalservice.service.SplitterService;
 import org.micro.service.sampleexternalservice.web.model.gatewayaggregator.Product;
 import org.micro.service.sampleexternalservice.web.model.gatewayaggregator.Promotion;
 import org.micro.service.sampleexternalservice.web.model.gatewayaggregator.Review;
@@ -57,6 +58,7 @@ public class ExternalServiceRestController {
     private final ScatterGatherService scatterGatherService;
     private final ServiceOrchestratorParallelService serviceOrchestratorParallelService;
     private final ServiceOrchestratorSequentialService serviceOrchestratorSequentialService;
+    private final SplitterService splitterService;
 
     // Gateway Aggregator
 
@@ -190,13 +192,13 @@ public class ExternalServiceRestController {
 
     // Splitter
     @PostMapping("/splitter/car/reserve")
-    public Flux<CarResponse> reserveCar(@RequestBody CarRequest carRequestFlux) {
-        return null;
+    public Flux<CarResponse> reserveCar(@RequestBody Flux<CarRequest> carRequestFlux) {
+        return splitterService.bookCar(carRequestFlux);
     }
 
     @PostMapping("/splitter/hotel/reserve")
-    public Flux<HotelResponse> reserveHotel(@RequestBody HotelRequest hotelRequestFlux) {
-        return null;
+    public Flux<HotelResponse> reserveHotel(@RequestBody Flux<HotelRequest> hotelRequestFlux) {
+        return splitterService.bookHotelRoom(hotelRequestFlux);
     }
 
 }

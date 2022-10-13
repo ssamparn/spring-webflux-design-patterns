@@ -11,6 +11,6 @@ import java.time.LocalDate;
 public class CarRequest {
     private Category category;
     private String city;
-    private LocalDate pickupTime;
-    private LocalDate dropTime;
+    private LocalDate pickupDate;
+    private LocalDate dropDate;
 }

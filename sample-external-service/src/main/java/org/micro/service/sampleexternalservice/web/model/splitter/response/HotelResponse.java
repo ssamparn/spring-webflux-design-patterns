@@ -1,5 +1,6 @@
 package org.micro.service.sampleexternalservice.web.model.splitter.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.micro.service.sampleexternalservice.web.model.splitter.Category;
@@ -9,6 +10,7 @@ import java.util.UUID;
 
 @Data
 @Builder
+@AllArgsConstructor(staticName = "create")
 public class HotelResponse {
     private UUID reservationId;
     private String city;

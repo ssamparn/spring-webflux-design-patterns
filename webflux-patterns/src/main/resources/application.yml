@@ -18,5 +18,5 @@ base:
     sso-inventory: http://localhost:8080/serviceorchestrator-sequential/inventory
     sso-shipping: http://localhost:8080/serviceorchestrator-sequential/shipping
     car: http://localhost:8080/splitter/car/reserve
-    hotel: ttp://localhost:8080/splitter/hotel/reserve
+    hotel: http://localhost:8080/splitter/hotel/reserve
 

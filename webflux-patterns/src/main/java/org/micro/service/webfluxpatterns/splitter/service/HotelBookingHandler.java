@@ -22,7 +22,7 @@ public class HotelBookingHandler implements BookingHandler {
     }
 
     @Override
-    public Flux<ItemBookingResponse> reserve(Flux<ItemBookingRequest> itemBookingRequestFlux) {
+    public Flux<ItemBookingResponse> reserveBooking(Flux<ItemBookingRequest> itemBookingRequestFlux) {
         return itemBookingRequestFlux
                 .map(this::toHotelReservationRequest)
                 .transform(hotelReservationRequestFlux -> this.hotelRestClient.reserve(hotelReservationRequestFlux))

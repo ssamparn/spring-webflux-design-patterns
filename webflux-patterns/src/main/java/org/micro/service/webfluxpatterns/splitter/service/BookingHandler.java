@@ -7,5 +7,5 @@ import reactor.core.publisher.Flux;
 
 public interface BookingHandler {
     BookingType getType();
-    Flux<ItemBookingResponse> reserve(Flux<ItemBookingRequest> itemBookingRequestFlux);
+    Flux<ItemBookingResponse> reserveBooking(Flux<ItemBookingRequest> itemBookingRequestFlux);
 }
