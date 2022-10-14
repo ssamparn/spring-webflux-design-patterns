@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+
 @Component
 public class SsoInventoryRestClient {
 
@@ -37,6 +39,7 @@ public class SsoInventoryRestClient {
                 .bodyValue(inventoryRequest)
                 .retrieve()
                 .bodyToMono(SsoInventoryResponse.class)
+                .timeout(Duration.ofMillis(500))
                 .onErrorReturn(this.buildErrorInventoryResponse(inventoryRequest));
     }
 

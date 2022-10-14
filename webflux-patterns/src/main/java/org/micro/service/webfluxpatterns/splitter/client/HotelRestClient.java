@@ -8,6 +8,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+
 @Service
 public class HotelRestClient {
 
@@ -25,6 +27,7 @@ public class HotelRestClient {
                 .body(hotelRequestFlux, HotelReservationRequest.class)
                 .retrieve()
                 .bodyToFlux(HotelReservationResponse.class)
+                .timeout(Duration.ofMillis(500))
                 .onErrorResume(ex -> Mono.empty());
     }
 }

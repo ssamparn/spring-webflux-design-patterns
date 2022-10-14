@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+
 @Component
 public class PsoShippingRestClient {
 
@@ -37,6 +39,7 @@ public class PsoShippingRestClient {
                 .bodyValue(psoShippingRequest)
                 .retrieve()
                 .bodyToMono(PsoShippingResponse.class)
+                .timeout(Duration.ofMillis(500))
                 .onErrorReturn(this.buildErrorShippingResponse(psoShippingRequest));
     }
 

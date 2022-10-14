@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+
 @Component
 public class PsoProductRestClient {
 
@@ -23,6 +25,7 @@ public class PsoProductRestClient {
                 .uri("/{productId}", productId)
                 .retrieve()
                 .bodyToMono(PsoProductResponse.class)
+                .timeout(Duration.ofMillis(500))
                 .onErrorResume(ex -> Mono.empty());
     }
 
