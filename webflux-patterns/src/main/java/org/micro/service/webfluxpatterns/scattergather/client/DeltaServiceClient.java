@@ -8,6 +8,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+
 @Component
 public class DeltaServiceClient {
 
@@ -27,6 +29,7 @@ public class DeltaServiceClient {
                 .onStatus(HttpStatus::is4xxClientError, response -> Mono.empty())
                 .bodyToFlux(FlightResult.class)
                 .retry(3)
+                .timeout(Duration.ofMillis(250))
                 .onErrorResume(ex -> Mono.empty());
     }
 }

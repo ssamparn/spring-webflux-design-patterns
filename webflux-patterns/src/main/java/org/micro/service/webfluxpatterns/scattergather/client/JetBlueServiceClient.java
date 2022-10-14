@@ -8,6 +8,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+
 @Component
 public class JetBlueServiceClient {
 
@@ -30,6 +32,7 @@ public class JetBlueServiceClient {
                 .bodyToFlux(FlightResult.class)
                 .doOnNext(flightResult -> this.normalizeResponse(flightResult, source, destination))
                 .retry(3)
+                .timeout(Duration.ofMillis(250))
                 .onErrorResume(ex -> Mono.empty());
     }
 

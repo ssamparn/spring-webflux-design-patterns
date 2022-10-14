@@ -2,9 +2,11 @@ package org.micro.service.webfluxpatterns.gatewayaggregator.client;
 
 import org.micro.service.webfluxpatterns.gatewayaggregator.model.ProductResponse;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import reactor.util.retry.Retry;
 
 import java.time.Duration;
 
@@ -24,7 +26,9 @@ public class GaProductRestClient {
                 .get()
                 .uri("/{productId}", productId)
                 .retrieve()
+                .onStatus(HttpStatus::is4xxClientError, response -> Mono.empty())
                 .bodyToMono(ProductResponse.class)
+                .retryWhen(Retry.fixedDelay(3, Duration.ofMillis(50)))
                 .timeout(Duration.ofMillis(500))
                 .onErrorResume(ex -> Mono.empty());
     }
