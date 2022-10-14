@@ -20,25 +20,32 @@ base:
     car: http://localhost:8080/splitter/car/reserve
     hotel: http://localhost:8080/splitter/hotel/reserve
 
-resilience4j.circuitbreaker:
-  instances:
-    car-service:
-      slidingWindowType: COUNT_BASED
-      slidingWindowSize: 8
-      minimumNumberOfCalls: 5
-      failureRateThreshold: 30
-      waitDurationInOpenState: 10s
-      permittedNumberOfCallsInHalfOpenState: 2
-      recordExceptions:
-        - org.springframework.web.reactive.function.client.WebClientResponseException
-        - java.util.concurrent.TimeoutException
-    hotel-service:
-      slidingWindowType: COUNT_BASED
-      slidingWindowSize: 8
-      minimumNumberOfCalls: 5
-      failureRateThreshold: 30
-      waitDurationInOpenState: 10s
-      permittedNumberOfCallsInHalfOpenState: 2
-      recordExceptions:
-        - org.springframework.web.reactive.function.client.WebClientResponseException
-        - java.util.concurrent.TimeoutException
+resilience4j:
+  circuitbreaker:
+    instances:
+      car-service:
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 8
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 30
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 2
+        recordExceptions:
+          - org.springframework.web.reactive.function.client.WebClientResponseException
+          - java.util.concurrent.TimeoutException
+      hotel-service:
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 8
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 30
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 2
+        recordExceptions:
+          - org.springframework.web.reactive.function.client.WebClientResponseException
+          - java.util.concurrent.TimeoutException
+  ratelimiter:
+    instances:
+      calculator-service:
+         limitRefreshPeriod: 20s
+         limitForPeriod: 5
+         timeoutDuration: 5s
