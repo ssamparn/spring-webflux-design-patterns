@@ -1,4 +1,4 @@
-package org.micro.service.webfluxpatterns.ratelimit.server.controller;
+package org.micro.service.webfluxpatterns.ratelimit.controller;
 
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.springframework.http.HttpStatus;
