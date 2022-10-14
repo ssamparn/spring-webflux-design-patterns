@@ -1,5 +1,6 @@
 package org.micro.service.webfluxpatterns.gatewayaggregator.client;
 
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.micro.service.webfluxpatterns.gatewayaggregator.model.ReviewResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ public class GaReviewRestClient {
                 .build();
     }
 
+    @RateLimiter(name = "review-service", fallbackMethod = "fallback")
     public Mono<List<ReviewResponse>> getReviews(Integer productId) {
         return this.webClient
                 .get()
@@ -34,5 +36,9 @@ public class GaReviewRestClient {
                 .retryWhen(Retry.fixedDelay(3, Duration.ofMillis(50)))
                 .timeout(Duration.ofMillis(500))
                 .onErrorReturn(Collections.emptyList());
+    }
+
+    public Mono<List<ReviewResponse>> fallback(Integer productId, Throwable t) {
+        return Mono.just(Collections.emptyList());
     }
 }
