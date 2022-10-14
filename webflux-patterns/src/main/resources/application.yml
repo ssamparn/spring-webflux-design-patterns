@@ -33,6 +33,7 @@ resilience4j:
         recordExceptions:
           - org.springframework.web.reactive.function.client.WebClientResponseException
           - java.util.concurrent.TimeoutException
+
       hotel-service:
         slidingWindowType: COUNT_BASED
         slidingWindowSize: 8
@@ -43,6 +44,7 @@ resilience4j:
         recordExceptions:
           - org.springframework.web.reactive.function.client.WebClientResponseException
           - java.util.concurrent.TimeoutException
+
   ratelimiter:
     instances:
       calculator-service:
