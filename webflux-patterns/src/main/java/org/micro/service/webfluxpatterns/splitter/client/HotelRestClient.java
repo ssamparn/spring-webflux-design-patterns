@@ -1,5 +1,7 @@
 package org.micro.service.webfluxpatterns.splitter.client;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import lombok.extern.slf4j.Slf4j;
 import org.micro.service.webfluxpatterns.splitter.model.request.HotelReservationRequest;
 import org.micro.service.webfluxpatterns.splitter.model.response.HotelReservationResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +12,7 @@ import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 
+@Slf4j
 @Service
 public class HotelRestClient {
 
@@ -21,13 +24,18 @@ public class HotelRestClient {
                 .build();
     }
 
+    @CircuitBreaker(name = "hotel-service", fallbackMethod = "fallbackHotel")
     public Flux<HotelReservationResponse> reserve(Flux<HotelReservationRequest> hotelRequestFlux) {
         return this.hotelClient
                 .post()
                 .body(hotelRequestFlux, HotelReservationRequest.class)
                 .retrieve()
                 .bodyToFlux(HotelReservationResponse.class)
-                .timeout(Duration.ofMillis(500))
-                .onErrorResume(ex -> Mono.empty());
+                .timeout(Duration.ofMillis(500));
+    }
+
+    public Flux<HotelReservationResponse> fallbackCar(Flux<HotelReservationRequest> hotelRequestFlux, Throwable t) {
+        log.warn("fallback hotel is called");
+        return Flux.empty();
     }
 }
