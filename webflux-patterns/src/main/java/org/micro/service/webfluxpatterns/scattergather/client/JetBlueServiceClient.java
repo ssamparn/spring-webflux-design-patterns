@@ -2,12 +2,11 @@ package org.micro.service.webfluxpatterns.scattergather.client;
 
 import org.micro.service.webfluxpatterns.scattergather.model.FlightResult;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.time.Duration;
 
 @Component
 public class JetBlueServiceClient {
@@ -27,9 +26,10 @@ public class JetBlueServiceClient {
                 .get()
                 .uri("/{source}/{destination}", source, destination)
                 .retrieve()
+                .onStatus(HttpStatus::is4xxClientError, response -> Mono.empty())
                 .bodyToFlux(FlightResult.class)
-                .timeout(Duration.ofMillis(500))
                 .doOnNext(flightResult -> this.normalizeResponse(flightResult, source, destination))
+                .retry(3)
                 .onErrorResume(ex -> Mono.empty());
     }
 

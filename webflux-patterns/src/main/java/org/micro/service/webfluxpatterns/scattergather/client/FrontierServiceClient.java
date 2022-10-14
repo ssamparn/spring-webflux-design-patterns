@@ -2,15 +2,13 @@ package org.micro.service.webfluxpatterns.scattergather.client;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.micro.service.webfluxpatterns.gatewayaggregator.model.ProductResponse;
 import org.micro.service.webfluxpatterns.scattergather.model.FlightResult;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.time.Duration;
 
 @Component
 public class FrontierServiceClient {
@@ -28,8 +26,9 @@ public class FrontierServiceClient {
                 .post()
                 .bodyValue(FrontierRequest.create(source, destination))
                 .retrieve()
+                .onStatus(HttpStatus::is4xxClientError, response -> Mono.empty())
                 .bodyToFlux(FlightResult.class)
-                .timeout(Duration.ofMillis(500))
+                .retry(3)
                 .onErrorResume(ex -> Mono.empty());
     }
 
