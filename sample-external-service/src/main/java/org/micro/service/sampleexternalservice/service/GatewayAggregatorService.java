@@ -28,7 +28,7 @@ public class GatewayAggregatorService {
         return Mono.just(product);
     }
 
-    public Mono<Promotion> createPromotion(Integer productId) {
+    public Mono<Promotion> createPromotionForGatewayAggregator(Integer productId) {
         Promotion promotion = Promotion.builder()
                 .productId(productId)
                 .promotionCode(faker.commerce().promotionCode())
@@ -40,7 +40,7 @@ public class GatewayAggregatorService {
         return Mono.just(promotion);
     }
 
-    public Mono<List<Review>> createReviews(Integer productId) {
+    public Mono<List<Review>> createReviewsForGatewayAggregator(Integer productId) {
         Review review1 = Review.builder()
                 .productId(productId)
                 .userName(faker.funnyName().name())

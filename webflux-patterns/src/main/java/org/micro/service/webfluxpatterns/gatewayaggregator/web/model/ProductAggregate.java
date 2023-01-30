@@ -15,6 +15,6 @@ public class ProductAggregate {
     private Integer productId;
     private String productCategory;
     private String productDescription;
-    private Price price;
+    private Price productPrice;
     private List<ReviewResponse> reviews;
 }

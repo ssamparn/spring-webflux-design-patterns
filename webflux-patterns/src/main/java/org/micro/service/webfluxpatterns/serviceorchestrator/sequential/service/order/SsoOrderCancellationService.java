@@ -1,5 +1,6 @@
 package org.micro.service.webfluxpatterns.serviceorchestrator.sequential.service.order;
 
+import jakarta.annotation.PostConstruct;
 import org.micro.service.webfluxpatterns.serviceorchestrator.sequential.model.SsoOrchestrationRequestContext;
 import org.micro.service.webfluxpatterns.serviceorchestrator.sequential.service.SsoServiceOrchestrator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 import reactor.core.scheduler.Schedulers;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service

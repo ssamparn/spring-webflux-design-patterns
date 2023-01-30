@@ -3,7 +3,7 @@ package org.micro.service.webfluxpatterns.gatewayaggregator.client;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.micro.service.webfluxpatterns.gatewayaggregator.model.ReviewResponse;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -30,7 +30,7 @@ public class GaReviewRestClient {
                 .get()
                 .uri("/{reviewId}", productId)
                 .retrieve()
-                .onStatus(HttpStatus::is4xxClientError, response -> Mono.empty())
+                .onStatus(HttpStatusCode::is4xxClientError, response -> Mono.empty())
                 .bodyToFlux(ReviewResponse.class)
                 .collectList()
                 .retryWhen(Retry.fixedDelay(3, Duration.ofMillis(50)))

@@ -68,13 +68,13 @@ public class ExternalServiceRestController {
     }
 
     @GetMapping("/gatewayaggregator/promotion/{promotionId}")
-    public Mono<Promotion> getPromotion(@PathVariable(name = "promotionId") int promotionId) {
-        return gatewayAggregatorService.createPromotion(promotionId);
+    public Mono<Promotion> getPromotionWithGatewayAggregator(@PathVariable(name = "promotionId") int promotionId) {
+        return gatewayAggregatorService.createPromotionForGatewayAggregator(promotionId);
     }
 
     @GetMapping("/gatewayaggregator/reviews/{reviewId}")
-    public Mono<List<Review>> getAllReviews(@PathVariable(name = "reviewId") int reviewId) {
-        return gatewayAggregatorService.createReviews(reviewId);
+    public Mono<List<Review>> getAllReviewsWithGatewayAggregator(@PathVariable(name = "reviewId") int reviewId) {
+        return gatewayAggregatorService.createReviewsForGatewayAggregator(reviewId);
     }
 
     // Scatter Gather
